@@ -1,0 +1,482 @@
+body{
+    margin: 0;
+    min-height: 100vh;
+}
+
+.LOGIN-BACKGROUND{
+    position: fixed;
+    inset: 0;
+    background-image: url("74be4539-c820-4785-bf2e-b3800f8c0a25.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.LOGO{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 42px;
+    color: white;
+    position: absolute;
+    top: 175px;
+    left: 200px;
+    cursor: default;
+}
+
+.LOGIN-TITLE1{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 150px;
+    left: 250px;
+    cursor: default;
+}
+
+.LOGIN-TITLE2{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: blue;
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    cursor: default;
+}
+
+.LOGIN-DESC{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 190px;
+    left: 250px;
+    cursor: default;
+}
+
+.PLAN{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: white;
+    position: absolute;
+    top: 230px;
+    left: 200px;
+    cursor: default;
+}
+
+.TODAY{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: white;
+    position: absolute;
+    top: 230px;
+    left: 340px;
+    cursor: default;
+}
+
+.ACHIEVE{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: white;
+    position: absolute;
+    top: 300px;
+    left: 200px;
+    cursor: default;
+}
+
+.TOMORROW{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: blue;
+    position: absolute;
+    top: 300px;
+    left: 430px;
+    cursor: default;
+}
+
+.LOGIN-DESC1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    top: 420px;
+    left: 200px;
+    cursor: default;
+}
+
+.LOGIN-DESC2{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    top: 440px;
+    left: 200px;
+    cursor: default;
+}
+
+.LOGIN-CALENDAR{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 200px;
+    cursor: default;
+}
+
+.MANAGE{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 250px;
+    cursor: default;
+}
+
+.MANAGE1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 65px;
+    left: 250px;
+    cursor: default;
+}
+
+.LOGIN-BOOK{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 370px;
+    cursor: default;
+}
+
+.TRACK{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 420px;
+    cursor: default;
+}
+
+.TRACK1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 65px;
+    left: 420px;
+    cursor: default;
+}
+
+.LOGIN-CHART{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 540px;
+    cursor: default;
+}
+
+.STAY{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 590px;
+    cursor: default;
+}
+
+.STAY1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 65px;
+    left: 590px;
+    cursor: default;
+}
+
+.LOGINFORM{
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    height: 570px;
+    width: 330px;
+    right: 100px;
+    bottom: 50px;
+    right: 50px;
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.LOGIN-ICON{
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 50%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: white;
+    cursor: default;
+}
+
+.LOGIN{
+    font-style: normal;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    position: absolute;
+    left: 20px;
+    margin-top: 20px;
+    cursor: default;
+}
+
+.LOGIN-DESCRIPTION{
+    font-size: 15px;
+    color: white;
+    margin: 0;
+    left: 20px;
+    position: absolute;
+    top: 130px;
+    font-weight: normal;
+    font-style: normal;
+    cursor: default;
+}
+
+.EMAIL-ADDRESS{
+    font-size: 15px;
+    color: white;
+    margin: 0;
+    left: 20px;
+    position: absolute;
+    font-weight: bold;
+    font-style: normal;
+    top: 180px;
+    cursor: default;
+}
+
+.INPUT-EMAIL{
+    width: 300px;
+    height: 25px;
+    position: absolute;
+    top: 210px;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.INPUT-EMAIL i{
+    color: white;
+    margin-right: 10px;
+}
+
+.INPUT-EMAIL input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.PASSWORD{
+    font-size: 15px;
+    color: white;
+    margin: 0;
+    left: 20px;
+    position: absolute;
+    font-weight: bold;
+    font-style: normal;
+    top: 280px;
+    cursor: default;
+}
+
+.INPUT-PASSWORD{
+    width: 300px;
+    height: 25px;
+    position: absolute;
+    top: 310px;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.INPUT-PASSWORD i{
+    color: white;
+    margin-right: 10px;
+}
+
+.INPUT-PASSWORD input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.REMEMBER-ME{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    position: fixed;
+    top: 350px;
+    color: white;
+    cursor: pointer;
+}
+
+.Remember-Me{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.FORGOT-PASSWORD{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    position: fixed;
+    top: 350px;
+    color: blue;
+    right: 20px;
+    cursor: pointer;
+}
+
+.LOGIN-BUTTON{
+    width: 300px;
+    height: 25px;
+    display: flex;
+    padding: 10px 15px;
+    border: 1px solid blue;
+    border-radius: 20px;
+    background: linear-gradient(to right, #151b54, #8806ce);
+    position: absolute;
+    top: 400px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.LOGIN-BUTTON button{
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: normal;
+    color: white;
+    cursor: pointer;
+}
+
+.OR{
+    color: white;
+    font-size: 13px;
+    position: absolute;
+    top: 450px;
+    left: 167px;
+    gap: 10px;
+    justify-content: center;
+    cursor: default;
+}
+
+.OR-LINE1{
+    width: 120px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    position: absolute;
+    top: 470px;
+    left: 30px;
+    cursor: default;
+}
+
+.OR-LINE2{
+    width: 120px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    position: absolute;
+    top: 470px;
+    right: 30px;
+    cursor: default;
+}
+
+.GOOGLE-BUTTON{
+    width: 332px;
+    height: 40px;
+    display: flex;
+    padding: 10px 15px;
+    border: 1px solid white;
+    border-radius: 20px;
+    background: white;
+    position: absolute;
+    top: 490px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.GOOGLE-BUTTON img{
+    width: 22px;
+    height: 22px;
+    left: 10px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.NO-ACCOUNT{
+    color: white;
+    font-size: 15px;
+    position: absolute;
+    bottom: 30px;
+    left: 75px;
+    cursor: pointer;
+}
+
+.SIGN-UP{
+    color: blue;
+    font-size: 15px;
+    position: absolute;
+    bottom: 45px;
+    right: 100px;
+    cursor: pointer;
+}

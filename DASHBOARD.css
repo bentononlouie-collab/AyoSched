@@ -1,0 +1,837 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body{
+    overflow-y: hidden;
+}
+
+.CONTAINER1 {
+    width: 100%;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.LOGO{
+    font-size: 26px;
+    color: #ffffff;
+    left: 20px;
+    position: absolute;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+    -webkit-text-stroke: 0.3px #142b55;
+    font-weight: bold;
+    cursor: default;
+}
+
+.TITLE1{
+    font-size: 26px;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+    left: 60px;
+    position: absolute;
+    -webkit-text-stroke: 0.3px #142b55;
+    font-weight: bold;
+    cursor: default;
+}
+
+.TITLE2{
+    font-size: 26px;
+    color: blue;
+    left: 105px;
+    position: absolute;
+    -webkit-text-stroke: 0.7px #142b55;
+    cursor: default;
+}
+
+.PROFILE{
+    font-size: 26px;
+    color: black;
+    right: 20px;
+    position: absolute;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(39, 34, 34, 0.3);
+    border-radius: 50%;
+    width: 60px;   
+    height: 60px;
+    cursor: pointer;
+}
+
+.PROFILE i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.GREETING{
+    font-size: 20px;
+    color: black;
+    right: 100px;
+    position: absolute;
+    right: 100px;
+    cursor: default;
+}
+
+.ADD{
+    width: 400px;
+    height: 630px;
+    left: 10px;
+    position: absolute;
+    bottom: 10px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-TITLE{
+    font-size: 18px;
+    color: black;
+    left: 20px;
+    position: absolute;
+    top: 5px;
+    cursor: default;
+    font-weight: bold;
+}
+
+.ADD-TITLE1{
+    font-size: 15px;
+    color: black;
+    left: 20px;
+    position: absolute;
+    top: 45px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-SUBJECT{
+    width: 370px;
+    height: 45px;
+    position: absolute;
+    top: 80px;
+    display: flex;
+    left: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-SUBJECT i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-SUBJECT input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE2{
+    font-size: 15px;
+    color: black;
+    left: 20px;
+    position: absolute;
+    top: 125px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-INSTRUCTOR{
+    width: 370px;
+    height: 45px;
+    position: absolute;
+    top: 160px;
+    display: flex;
+    left: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-INSTRUCTOR i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-INSTRUCTOR input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE3{
+    font-size: 15px;
+    color: black;
+    left: 20px;
+    position: absolute;
+    top: 205px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-LOCATION{
+    width: 370px;
+    height: 45px;
+    position: absolute;
+    top: 238px;
+    display: flex;
+    left: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-LOCATION i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-LOCATION input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE4{
+    font-size: 15px;
+    color: black;
+    left: 20px;
+    position: absolute;
+    top: 285px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-DAY{
+    width: 180px;
+    height: 45px;
+    position: absolute;
+    top: 317px;
+    display: flex;
+    left: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-DAY i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-DAY input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE5{
+    font-size: 15px;
+    color: black;
+    right: 100px;
+    position: absolute;
+    top: 285px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-SCHEDULE-TYPE{
+    width: 180px;
+    height: 45px;
+    position: absolute;
+    top: 317px;
+    display: flex;
+    right: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-SCHEDULE-TYPE i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-SCHEDULE-TYPE input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE6{
+    font-size: 15px;
+    color: black;
+    left: 15px;
+    position: absolute;
+    top: 360px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-START{
+    width: 180px;
+    height: 45px;
+    position: absolute;
+    top: 390px;
+    display: flex;
+    left: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-START i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-START input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE7{
+    font-size: 15px;
+    color: black;
+    right: 125px;
+    position: absolute;
+    top: 360px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-END{
+    width: 180px;
+    height: 45px;
+    position: absolute;
+    top: 390px;
+    display: flex;
+    right: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-END i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-END input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-TITLE8{
+    font-size: 15px;
+    color: black;
+    left: 20px;
+    position: absolute;
+    bottom: 155px;
+    cursor: default;
+    font-weight: normal;
+}
+
+.ADD-NOTES{
+    width: 370px;
+    height: 45px;
+    position: absolute;
+    bottom: 95px;
+    display: flex;
+    left: 15px;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ADD-NOTES i{
+    color: white;
+    margin-right: 10px;
+}
+
+.ADD-NOTES input{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    background: transparent;
+}
+
+.ADD-BUTTON{
+    width: 150px;
+    height: 40px;
+    display: flex;
+    padding: 10px 15px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    background: linear-gradient(to right, #6495ed, #1569c7);
+    position: absolute;
+    bottom: 60px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    left: 15px;
+}
+
+.ADD-BUTTON button{
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    color: white;
+    cursor: pointer;
+}
+
+.CLEAR-BUTTON{
+    width: 150px;
+    height: 40px;
+    display: flex;
+    padding: 10px 15px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    background: linear-gradient(to right, #cd5c5c, #b80f0a);
+    position: absolute;
+    bottom: 60px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    right: 15px;
+}
+
+.CLEAR-BUTTON button{
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    color: white;
+    cursor: pointer;
+}
+
+.MAIN{
+    width: 1100px;
+    height: 470px;
+    right: 10px;
+    position: absolute;
+    bottom: 10px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.CALENDAR{
+    font-size: 28px;
+    color: blue;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-weight: bold;
+}
+
+.Weekly{
+    font-size: 20px;
+    color: blue;
+    position: absolute;
+    left: 45px;
+    top: 4px;
+    font-weight: bold;
+}
+
+.VIEW-CALENDAR{
+    background: blue;
+    color: white;
+    border: 1px solid blue;
+    border-radius: 15px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    position: absolute;
+    right: 10px;
+    height: 30px;
+    width: 110px;
+    top: 12px;
+}
+
+.LINE{
+    width: 100%;
+    height: 5px;
+    background: blue;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+}
+
+.MONDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    left: 15px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.TUESDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    left: 170px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.WEDNESDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    left: 325px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.THURSDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    left: 480px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.FRIDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    left: 635px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.SATURDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    left: 790px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.SUNDAY {
+    width: 140px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top: 60px;
+    right: 15px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.EMPTY i{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 400px;
+    color: blue;
+    filter: drop-shadow(0 0 12px #008cff);
+    margin-bottom: 15px;
+    font-size: 80px;
+}
+
+.NOTES{
+    font-size: 20px;
+    color: #1569c7;
+    position: absolute;
+    top: 250px;
+    left: 445px;
+}
+
+.NOTES1{
+    font-size: 15px;
+    color: black;
+    position: absolute;
+    top: 280px;
+    left: 400px;
+}
+
+.REMAIN-SUBJECT{
+    width: 300px;
+    height: 140px;
+    left: 428px;
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.REMAIN-BOOK i{
+    font-size: 70px;
+    color: blue;
+    left: 15px;
+    top: 35px;
+    position: absolute;
+}
+
+.REMAIN-NUMBER{
+    font-size: 50px;
+    color: blue;
+    left: 120px;
+    top: -10px;
+    position: absolute;
+}
+
+.REMAIN-TEXT{
+    font-size: 20px;
+    color: blue;
+    left: 120px;
+    top: 60px;
+    position: absolute;
+}
+
+.CLASS-TODAY{
+    width: 300px;
+    height: 140px;
+    left: 750px;
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.CLASS-BOOK i{
+    font-size: 70px;
+    color: blue;
+    left: 15px;
+    top: 35px;
+    position: absolute;
+}
+
+.CLASS-NUMBER{
+    font-size: 50px;
+    color: blue;
+    left: 120px;
+    top: -10px;
+    position: absolute;
+}
+
+.CLASS-TEXT{
+    font-size: 20px;
+    color: blue;
+    left: 120px;
+    top: 60px;
+    position: absolute;
+}
+
+.NEXT-CLASS{
+    width: 300px;
+    height: 140px;
+    left: 1073px;
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.TIME-BOOK i{
+    font-size: 70px;
+    color: blue;
+    left: 15px;
+    top: 35px;
+    position: absolute;
+}
+
+.TIME-NUMBER{
+    font-size: 30px;
+    color: blue;
+    left: 120px;
+    top: 15px;
+    position: absolute;
+}
+
+.TIME-TEXT{
+    font-size: 20px;
+    color: blue;
+    left: 120px;
+    top: 60px;
+    position: absolute;
+}
