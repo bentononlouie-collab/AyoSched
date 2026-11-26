@@ -10,54 +10,61 @@
 
 </head>
 <body>
-    <div class = "CONTAINER1">
-        <div class = "LOGO">
-            <i class = "fa-solid fa-calendar-days"></i>
-        </div>
+    <div class = "LOGO">
+        <i class = "fa-solid fa-calendar-days"></i>
+    </div>
         <h1 class = "TITLE1"> Ayo </h1>
         <h1 class = "TITLE2"> Sched </h1>
-        <div class = "PROFILE">
+    <div class = "ICON">
+        <div class = "PROFILE" id = "profileBtn">
             <i class = "fa-solid fa-user"></i>
         </div>
-        <h1 class = "GREETING"> Good Day, User! </h1>
+        <div class = "USER-INFO">
+            <span id = "welcomeName"> User </span>
+            <span id = "role"> Role </span>
+        </div>
+        <span class = "dropdown-arrow"> v </span>
     </div>
+    <h1 class = GREETING> Good Day, <span id = "goodName"> User </span></h1>
+    <div id = "dashboardView">
+    <form id = "scheduleForm">
     <div class = "ADD">
         <h1 class = "ADD-TITLE"> Add New Schedule </h1>
         <h1 class = "ADD-TITLE1"> Subject Name </h1>
         <div class = "ADD-SUBJECT">
-            <input type = "text" placeholder = "Enter Subject">
+            <input type = "text" id = "subjectName" placeholder = "Enter Subject">
         </div>
         <h1 class = "ADD-TITLE2"> Instructor </h1>
         <div class = "ADD-INSTRUCTOR">
-            <input type = "text" placeholder = "Enter Instructor Name">
+            <input type = "text" id = "instructor" placeholder = "Enter Instructor Name">
         </div>
         <h1 class = "ADD-TITLE3"> Location </h1>
         <div class = "ADD-LOCATION">
-            <input type = "text" placeholder = "Enter Location">
+            <input type = "text" id = "location" placeholder = "Enter Location">
         </div>
         <h1 class = "ADD-TITLE4"> Day </h1>
         <div class = "ADD-DAY">
-            <input type = "text" placeholder = "Monday">
+            <input type = "text" id = "day" placeholder = "Monday">
         </div>
         <h1 class = "ADD-TITLE5"> Schedule Type </h1>
         <div class = "ADD-SCHEDULE-TYPE">
-            <input type = "text" placeholder = "Lecture">
+            <input type = "text" id = "scheduleType" placeholder = "Lecture">
         </div>
         <h1 class = "ADD-TITLE6"> Start Time </h1>
         <div class = "ADD-START">
-            <input type = "text" placeholder = "08:00 AM">
+            <input type = "text" id = "startTime" placeholder = "08:00 AM">
         </div>
         <h1 class = "ADD-TITLE7"> End Time </h1>
         <div class = "ADD-END">
-            <input type = "text" placeholder = "09:00 AM">
+            <input type = "text" id = "endTime" placeholder = "09:00 AM">
         </div>
         <h1 class = "ADD-TITLE8"> Notes(Optional) </h1>
         <div class = "ADD-NOTES">
-            <input type = "text" placeholder = "Additional Notes...">
+            <input type = "text" id= "notes" placeholder = "Additional Notes...">
         </div>
         <div class = "ADD-BUTTON">
             <form action = "">
-                <button href = "#"> + Add Schedule </button>
+                <button type = "submit"> + Add Schedule </button>
             </form>
         </div>
         <div class = "CLEAR-BUTTON">
@@ -66,49 +73,173 @@
             </form>
         </div>
     </div>
+    </form>
     <div class = "MAIN">
         <div class = "CALENDAR">
              <i class = "fa-solid fa-calendar-days"></i>
         </div>
-        <h1 class = "Weekly"> Weekly Timetable </h1>
-        <button class = "VIEW-CALENDAR"> View Calendar 
+        <h1 class = "Weekly"> My Schedule </h1>
+        <button class = "VIEW-CALENDAR" id = "viewCalendarBtn"> View Calendar 
             <i class = "fa-solid fa-arrow-right"></i>
         </button>
-        <div class = "LINE"></div>
-        <button class = "MONDAY"> MONDAY </button>
-        <button class = "TUESDAY"> TUESDAY </button>
-        <button class = "WEDNESDAY"> WEDNESDAY </button>
-        <button class = "THURSDAY"> THURSDAY </button>
-        <button class = "FRIDAY"> FRIDAY </button>
-        <button class = "SATURDAY"> SATURDAY </button>
-        <button class = "SUNDAY"> SUNDAY </button>
-        <div class = "EMPTY">
-            <i class = "fa-regular fa-calendar-check"></i>
+        <div class = "calendar-wrapper">
+        <div id = "calendarPopup" class = "calendar-popup" style = "display: none;">
+            <div class = "calendar-header">
+                <button id = "prevMonth"> &lt; </button>
+                <h3 id = "calendarMonth"></h3>
+                <button id = "nextMonth"> &gt; </button>
+            </div>
+            <div class = "calendar-days">
+                <span> Sun </span>
+                <span> Mon </span>
+                <span> Tue </span>
+                <span> Wed </span>
+                <span> Thu </span>
+                <span> Fri </span>
+                <span> Sat </span>
+            </div>
+            <div id = "calendarDates" class = "calendar-dates"></div>
         </div>
-        <h2 class = "NOTES"> No Classes Schedule Yet </h2>
-        <p class = "NOTES1"> Add a schedule to see your weekly timetable here. </p>
+        </div>
+        <div class = "LINE"></div>
+        <div id = "scheduleDisplay">
+            <i class = "fa-regular fa-calendar-check"></i>
+            <h2 class = "NOTES"> No Classes Schedule Yet </h2>
+            <p class = "NOTES1"> Add a schedule to see your weekly timetable here. </p>
+        </div>
     </div>
     <div class = "REMAIN-SUBJECT">
         <div class = "REMAIN-BOOK">
             <i class = "fa-solid fa-book"></i>
         </div>
-        <h1 class = "REMAIN-NUMBER"> 8 </h1>
+        <h1 class = "REMAIN-NUMBER" id = "totalSubjects"> 0 </h1>
         <p class = "REMAIN-TEXT"> Total Subjects </p>
+        <p class = "REMAIN-NEXT" id = "nextRem"> -- </p>
     </div>
     <div class = "CLASS-TODAY">
         <div class = "CLASS-BOOK">
             <i class = "fa-solid fa-calendar-check"></i>
         </div>
-        <h1 class = "CLASS-NUMBER"> 4 </h1>
+        <h1 class = "CLASS-NUMBER" id = "classesToday"> 0 </h1>
         <p class = "CLASS-TEXT"> Classes Today </p>
+        <p class = "CLASS-NEXT" id = "nextSub"> -- </p>
     </div>
     <div class = "NEXT-CLASS">
         <div class = "TIME-BOOK">
             <i class = "fa-solid fa-clock"></i>
         </div>
-        <h1 class = "TIME-NUMBER"> 10:00 AM </h1>
+        <h1 class = "TIME-NUMBER" id = "nextClass"> -- </h1>
         <p class = "TIME-TEXT"> Next Class </p>
+        <p class = "TIME-SET" id = "nextRoom"> -- </p>
+    </div>
+    <div class = "DEADLINE">
+        <div class = "DEADLINE1">
+            <i class = "fa-solid fa-hourglass"></i>
+        </div>
+        <h1 class = "DEADLINE2" id = "nextDeadline"> -- </h1>
+        <p class = "DEADLINE3"> Next Deadline </p>
+        <p class = "DEADLINE4" id = "nextProj"> -- </p>
+    </div>
+    </div>
+    </div>
+    <div class = "profile-dropdown" id = "profileDropdown">
+        <div id = "profileMenu">
+            <button id = "settingsBtn"> Settings </button>
+            <button id = "logoutBtn"> Logout </button>
+        </div>
+        <div id = "settingsCard" class = "settings-panel">
+            <button id = "backBtn" class = "back-btn">
+                <i class = "fa-solid fa-arrow-left"></i>
+            </button>
+            <div class = "st-header">
+                <h2> Settings </h2>
+                <p> Manage your account and preferences. </p>
+            </div>
+            <div class = "st-profile">
+                <div class = "st-avatar" id = "stAvatar">
+                    <i class = "fa-solid fa-user"></i>
+                </div>
+                <div class = "st-profile-info">
+                    <h3 id = "stDisplayName"> Student </h3>
+                    <span> Student ID: <b id = "stStudentId"> -- </b></span>
+                    <div class = "st-photo-actions">
+                        <label class = "st-btn st-btn-light" for = "stPhotoInput">
+                            <i class = "fa-solid fa-camera"></i>
+                            Change Photo
+                        </label>
+                        <input type = "file" id = "stPhotoInput" accept = "image/*" hidden>
+                        <button type = "button" id = "stRemovePhoto" class = "st-btn st-btn-ghost"> Remove </button>
+                    </div>
+                </div>
+            </div>
+            <div class = "st-card">
+                <div class = "st-card-head">
+                    <h3> Personal Information </h3>
+                    <button type = "button" id = "stEditBtn" class = "st-link-btn">
+                        <i class = "fa-solid fa-pen"></i>
+                        Edit
+                    </button>
+                </div>
+                <div class = "st-field">
+                    <label for = "stFullName"> Full Name </label>
+                    <input type = "text" id = "stFullName" disabled>
+                </div>
+                <div class = "st-field">
+                    <label for = "stEamil"> Email Address </label>
+                    <input type = "email" id = "stEmail" placeholder = "Not set" disabled>
+                </div>
+                <div class = "st-actions" id = "stInfoActions" hidden>
+                    <button type = "button" id = "stSaveInfo" class = "st-btn st-btn-primary"> Save Changes </button>
+                    <button type = "button" id = "stCancelInfo" class = "st-btn st-btn-ghost"> Cancel </button>
+                </div>
+            </div>
+            <div class = "st-card">
+                <div class = "st-card-head">
+                    <h3> Change Password </h3>
+                </div>
+                <div class = "st-field">
+                    <label for = "stCurrentPw"> Current Password </label>
+                    <input type = "password" id = "stCurrentPw" placeholder = "Enter current password">
+                </div>
+                <div class = "st-field">
+                    <label for = "stNewPw"> New Password </label>
+                    <input type = "password" id = "stNewPw" placeholder = "at least 8 characters">
+                </div>
+                <div class = "st-field">
+                    <label for = "stConfirmPw"> Confirm New Password </label>
+                    <input type = "password" id = "stConfirmPw" placeholder = "Repeat new password">
+                </div>
+                <p class = "st-msg" id = "stPwMsg"></p>
+                <div class = "st-actions">
+                    <button type = "button" id = "stUpdatePw" class = "st-btn st-btn-primary"> Update Password </button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src = "DASHBOARD.js"></script>
+    <script>
+        const firstName = localStorage.getItem("firstName");
+            if(firstName){
+                document.getElementById("welcomeName").textContent = firstName;
+            }
+    </script>
+    <script>
+        const profileMenu = document.getElementById("profileMenu");
+        const settingsCard = document.getElementById("settingsCard");
+            settingsCard.addEventListener("click", (e) => {
+                e.stopPropagation();
+            })
+            document.getElementById("settingsBtn").addEventListener("click", () => {
+                profileMenu.style.display = "none";
+                settingsCard.style.display = "block";
+                profileDropdown.classList.add("settings-open");
+            });
+            document.getElementById("backBtn").addEventListener("click", (e) => {
+                e.stopPropagation();
+                settingsCard.style.display = "none";
+                profileMenu.style.display = "block";
+                profileDropdown.classList.remove("settings-open");
+            });
+    </script>
 </body>
 </html>

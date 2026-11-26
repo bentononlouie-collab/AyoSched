@@ -13,12 +13,13 @@ html, body {
 
 body{
     overflow-y: hidden;
+    background: linear-gradient(to bottom, #0f172a, #1e3a8a, #312e81);
 }
 
 .CONTAINER1 {
     width: 100%;
     height: 70px;
-    background: rgba(255, 255, 255, 0.30);
+    background: linear-gradient(to right, #f0f8fb, #c6dbef , #6495ed);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -30,6 +31,18 @@ body{
     top: 0;
     left: 0;
     right: 0;
+    display: none;
+}
+
+.ICON{
+    width: 160px;
+    height: 60px;
+    background: white;
+    position: fixed;
+    right: 15px;
+    border-radius: 15px;
+    top: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 .LOGO{
@@ -41,6 +54,7 @@ body{
     -webkit-text-stroke: 0.3px #142b55;
     font-weight: bold;
     cursor: default;
+    top: 20px;
 }
 
 .TITLE1{
@@ -63,18 +77,56 @@ body{
     cursor: default;
 }
 
-.PROFILE{
-    font-size: 26px;
-    color: black;
-    right: 20px;
-    position: absolute;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(39, 34, 34, 0.3);
-    border-radius: 50%;
-    width: 60px;   
-    height: 60px;
+.ICON{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
     cursor: pointer;
+    transition: 0.3s ease;
 }
+
+.ICON:hover{
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.PROFILE{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 18px;
+}
+
+.USER-INFO{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+#welcomeName{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#role{
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.dropdown-arrow{
+    margin-left: 5px;
+    font-size: 14px;
+}
+
 
 .PROFILE i{
     position: absolute;
@@ -85,9 +137,10 @@ body{
 }
 
 .GREETING{
-    font-size: 20px;
-    color: black;
-    right: 100px;
+    font-size: 50px;
+    color: white;
+    left: 10px;
+    top: 60px;
     position: absolute;
     right: 100px;
     cursor: default;
@@ -95,21 +148,22 @@ body{
 
 .ADD{
     width: 400px;
-    height: 630px;
-    left: 10px;
+    height: 500px;
+    right: 10px;
+    bottom: 10px;
     position: absolute;
     bottom: 10px;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.30);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .ADD-TITLE{
     font-size: 18px;
-    color: black;
+    color: white;
     left: 20px;
     position: absolute;
     top: 5px;
@@ -119,7 +173,7 @@ body{
 
 .ADD-TITLE1{
     font-size: 15px;
-    color: black;
+    color: white;
     left: 20px;
     position: absolute;
     top: 45px;
@@ -161,7 +215,7 @@ body{
 
 .ADD-TITLE2{
     font-size: 15px;
-    color: black;
+    color: white;
     left: 20px;
     position: absolute;
     top: 125px;
@@ -203,7 +257,7 @@ body{
 
 .ADD-TITLE3{
     font-size: 15px;
-    color: black;
+    color: white;
     left: 20px;
     position: absolute;
     top: 205px;
@@ -245,7 +299,7 @@ body{
 
 .ADD-TITLE4{
     font-size: 15px;
-    color: black;
+    color: white;
     left: 20px;
     position: absolute;
     top: 285px;
@@ -287,7 +341,7 @@ body{
 
 .ADD-TITLE5{
     font-size: 15px;
-    color: black;
+    color: white;
     right: 100px;
     position: absolute;
     top: 285px;
@@ -329,7 +383,7 @@ body{
 
 .ADD-TITLE6{
     font-size: 15px;
-    color: black;
+    color: white;
     left: 15px;
     position: absolute;
     top: 360px;
@@ -371,7 +425,7 @@ body{
 
 .ADD-TITLE7{
     font-size: 15px;
-    color: black;
+    color: white;
     right: 125px;
     position: absolute;
     top: 360px;
@@ -413,12 +467,13 @@ body{
 
 .ADD-TITLE8{
     font-size: 15px;
-    color: black;
+    color: white;
     left: 20px;
     position: absolute;
     bottom: 155px;
     cursor: default;
     font-weight: normal;
+    display: none;
 }
 
 .ADD-NOTES{
@@ -426,7 +481,7 @@ body{
     height: 45px;
     position: absolute;
     bottom: 95px;
-    display: flex;
+    display: none;
     left: 15px;
     align-items: center;
     border: 1px solid white;
@@ -443,6 +498,7 @@ body{
 .ADD-NOTES i{
     color: white;
     margin-right: 10px;
+    display: none;
 }
 
 .ADD-NOTES input{
@@ -451,6 +507,7 @@ body{
     width: 100%;
     font-size: 16px;
     background: transparent;
+    display: none;
 }
 
 .ADD-BUTTON{
@@ -462,7 +519,7 @@ body{
     border-radius: 10px;
     background: linear-gradient(to right, #6495ed, #1569c7);
     position: absolute;
-    bottom: 60px;
+    bottom: 10px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -490,7 +547,7 @@ body{
     border-radius: 10px;
     background: linear-gradient(to right, #cd5c5c, #b80f0a);
     position: absolute;
-    bottom: 60px;
+    bottom: 10px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -511,21 +568,24 @@ body{
 
 .MAIN{
     width: 1100px;
-    height: 470px;
-    right: 10px;
+    height: 500px;
+    left: 10px;
     position: absolute;
     bottom: 10px;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.30);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .CALENDAR{
     font-size: 28px;
-    color: blue;
+    color: white;
     position: absolute;
     left: 10px;
     top: 10px;
@@ -534,7 +594,7 @@ body{
 
 .Weekly{
     font-size: 20px;
-    color: blue;
+    color: white;
     position: absolute;
     left: 45px;
     top: 4px;
@@ -558,8 +618,8 @@ body{
 
 .LINE{
     width: 100%;
-    height: 5px;
-    background: blue;
+    height: 3px;
+    background: gray;
     position: absolute;
     top: 45px;
     left: 0;
@@ -568,6 +628,7 @@ body{
 }
 
 .MONDAY {
+    display: none;
     width: 140px;
     height: 50px;
     background: rgba(255, 255, 255, 0.30);
@@ -587,6 +648,7 @@ body{
 
 .TUESDAY {
     width: 140px;
+    display: none;
     height: 50px;
     background: rgba(255, 255, 255, 0.30);
     backdrop-filter: blur(15px);
@@ -605,6 +667,7 @@ body{
 
 .WEDNESDAY {
     width: 140px;
+    display: none;
     height: 50px;
     background: rgba(255, 255, 255, 0.30);
     backdrop-filter: blur(15px);
@@ -623,6 +686,7 @@ body{
 
 .THURSDAY {
     width: 140px;
+    display: none;
     height: 50px;
     background: rgba(255, 255, 255, 0.30);
     backdrop-filter: blur(15px);
@@ -642,6 +706,7 @@ body{
 .FRIDAY {
     width: 140px;
     height: 50px;
+    display: none;
     background: rgba(255, 255, 255, 0.30);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -659,6 +724,7 @@ body{
 
 .SATURDAY {
     width: 140px;
+    display: none;
     height: 50px;
     background: rgba(255, 255, 255, 0.30);
     backdrop-filter: blur(15px);
@@ -677,6 +743,7 @@ body{
 
 .SUNDAY {
     width: 140px;
+    display: none;
     height: 50px;
     background: rgba(255, 255, 255, 0.30);
     backdrop-filter: blur(15px);
@@ -700,10 +767,83 @@ body{
     justify-content: center;
     text-align: center;
     height: 400px;
-    color: blue;
+    color: black;
     filter: drop-shadow(0 0 12px #008cff);
     margin-bottom: 15px;
     font-size: 80px;
+}
+
+#scheduleDisplay:has(.schedule-item){
+    margin-top: 130px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 0 20px;
+}
+
+#scheduleDisplay:not(:has(.NOTES)){
+    position: static;
+    margin: 50px 0 0;
+    height: calc(100% - 50px);
+    max-height: none;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 4px solid #60a5fa;
+    border-radius: 14px;
+    color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.schedule-item:hover{
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0,0.12);
+    transform: translateY(-2px);
+}
+
+.schedule-item.muted{
+    opacity: 0.55;
+}
+
+.schedule-item button{
+    background: rgba(239, 68, 68, 0.10);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.20);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.schedule-item button:hover{
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.schedule-item h3, .schedule-item p{
+    margin: 0;
+    white-space: nowrap;
+}
+
+.schedule-item h3{
+    color: #1569c7;
+    min-width: 120px;
 }
 
 .NOTES{
@@ -723,115 +863,779 @@ body{
 }
 
 .REMAIN-SUBJECT{
-    width: 300px;
-    height: 140px;
-    left: 428px;
+    width: 250px;
+    height: 120px;
+    right: 813px;
     position: absolute;
     top: 90px;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.30);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .REMAIN-BOOK i{
-    font-size: 70px;
-    color: blue;
-    left: 15px;
-    top: 35px;
-    position: absolute;
-}
-
-.REMAIN-NUMBER{
-    font-size: 50px;
-    color: blue;
-    left: 120px;
-    top: -10px;
-    position: absolute;
-}
-
-.REMAIN-TEXT{
     font-size: 20px;
     color: blue;
-    left: 120px;
-    top: 60px;
-    position: absolute;
-}
-
-.CLASS-TODAY{
-    width: 300px;
-    height: 140px;
-    left: 750px;
-    position: absolute;
-    top: 90px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.30);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.CLASS-BOOK i{
-    font-size: 70px;
-    color: blue;
-    left: 15px;
-    top: 35px;
-    position: absolute;
-}
-
-.CLASS-NUMBER{
-    font-size: 50px;
-    color: blue;
-    left: 120px;
-    top: -10px;
-    position: absolute;
-}
-
-.CLASS-TEXT{
-    font-size: 20px;
-    color: blue;
-    left: 120px;
-    top: 60px;
-    position: absolute;
-}
-
-.NEXT-CLASS{
-    width: 300px;
-    height: 140px;
-    left: 1073px;
-    position: absolute;
-    top: 90px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.30);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.TIME-BOOK i{
-    font-size: 70px;
-    color: blue;
-    left: 15px;
-    top: 35px;
-    position: absolute;
-}
-
-.TIME-NUMBER{
-    font-size: 30px;
-    color: blue;
-    left: 120px;
+    right: 15px;
     top: 15px;
     position: absolute;
 }
 
-.TIME-TEXT{
+.REMAIN-NUMBER{
+    font-size: 25px;
+    color: white;
+    left: 15px;
+    top: 30px;
+    position: absolute;
+}
+
+.REMAIN-TEXT{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    top: 3px;
+    position: absolute;
+}
+
+.REMAIN-NEXT{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    bottom: 3px;
+    position: absolute;
+}
+
+
+.CLASS-TODAY{
+    width: 250px;
+    height: 120px;
+    right: 545px;
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.CLASS-BOOK i{
     font-size: 20px;
     color: blue;
-    left: 120px;
-    top: 60px;
+    right: 15px;
+    top: 15px;
     position: absolute;
+}
+
+.CLASS-NUMBER{
+    font-size: 25px;
+    color: white;
+    left: 15px;
+    top: 30px;
+    position: absolute;
+}
+
+.CLASS-TEXT{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    top: 3px;
+    position: absolute;
+}
+
+.CLASS-NEXT{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    bottom: 3px;
+    position: absolute;
+}
+
+.NEXT-CLASS{
+    width: 250px;
+    height: 120px;
+    right: 15px;
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.TIME-BOOK i{
+    font-size: 20px;
+    color: blue;
+    right: 15px;
+    top: 15px;
+    position: absolute;
+}
+
+.TIME-NUMBER{
+    font-size: 25px;
+    color: white;
+    left: 15px;
+    top: 30px;
+    position: absolute;
+}
+
+.TIME-TEXT{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    top: 3px;
+    position: absolute;
+}
+
+.TIME-SET{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    bottom: 3px;
+    position: absolute;
+}
+
+.DEADLINE{
+    width: 250px;
+    height: 120px;
+    right: 280px;
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.DEADLINE1 i{
+    font-size: 20px;
+    color: blue;
+    right: 15px;
+    top: 15px;
+    position: absolute;
+}
+
+.DEADLINE2{
+    font-size: 25px;
+    color: white;
+    left: 15px;
+    top: 30px;
+    position: absolute;
+}
+
+.DEADLINE3{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    top: 3px;
+    position: absolute;
+}
+
+.DEADLINE4{
+    font-size: 15px;
+    color: white;
+    left: 15px;
+    bottom: 3px;
+    position: absolute;
+}
+
+.MONDAY, .TUESDAY, .WEDNESDAY, .THURSDAY, .FRIDAY, .SATURDAY, .SUNDAY{
+    z-index: 10;
+}
+
+.NOTES, .NOTES1, .EMPTY i{
+    pointer-events: none;
+} 
+
+#conflictOverlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.conflict-card{
+    background: white;
+    border-radius: 15px;
+    padding: 24px 28px;
+    min-width: 340px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.conflict-card h3 {color: #d9534f; margin-top: 0;}
+.slot-btn{
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #1a66d1;
+    color: white;
+    cursor: pointer;
+}
+
+.calendar-popup{
+    width: 380px;
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    margin-top: 12px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+    z-index: 99999;
+    right: 0;
+    top: 100%;
+    position: absolute;
+}
+
+.calendar-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.calendar-header h3{
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
+.calendar-header button{
+    border: none;
+    background: #0878e8;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+}
+
+.calendar-days, .calendar-dates{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.calendar-days{
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.calendar-days span, .calendar-dates > * {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 14px;
+    color: #444;
+}
+
+.calendar-dates .today{
+    background: #0878e8;
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-wrapper{
+    position: static;
+}
+
+#calendarPopup{
+    position: absolute;
+    top: 70px;
+    right: 15px;
+    width: 360px;
+    box-sizing: border-box;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    z-index: 999999;
+}
+
+#profileBtn{
+    cursor: pointer;
+}
+
+.profile-dropdown{
+    display: none;
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    width: 160px;
+    padding: 6px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    z-index: 999999;
+}
+
+.profile-dropdown.show{
+    display: block;
+}
+
+.profile-dropdown button{
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+.profile-dropdown button:hover{
+    background: #eef4ff;
+}
+
+#logoutBtn{
+    color: #d9534f;
+}
+
+.schedule-item.muted > :not(.mute-btn):not(.delete-btn){
+    opacity: 0.5;
+}
+
+.muted-label{
+    color: #888;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.mute-btn, .delete-btn {
+    display: inline-flex;
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25 ease;
+    margin: 0;
+}
+
+.mute-btn {
+    background: #e8f1ff;
+    color: #2878d0;
+}
+
+.mute-btn:hover{
+    background: #2878d0;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background: #ffe8e8;
+    color: #dc4545;
+}
+
+.delete-btn:hover {
+    background: #dc4545;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.muted-label{
+    display: inline-block;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: #eeeeee;
+    color: #777777;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.mute-btn i, .delete-btn i {
+    font-size: 13px;
+    height: auto;
+    margin: 0;
+    filter: none;
+    color: inherit;
+}
+
+.mute-btn + .delete-btn{
+    margin-left: -30px;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: black;
+    caret-color: black;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus{
+    -webkit-text-fill-color: black;
+    transition: background-color 9999s;
+}
+
+.profile-dropdown.settings-open {
+    width: 350px;
+    padding: 18px;
+}
+
+.profile-dropdown.settings-open #settingsBtn,
+.profile-dropdwon.settings-open #logoutBtn{
+    display: none;
+}
+
+.settings-panel{
+    display: none;
+    max-height: 75vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.profile-dropdown.settings-open .settings-panel{
+    display: block;
+}
+
+.settings-back{
+    border: none;
+    background: transparent;
+    color: #0875df;
+    font-size: 20px;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+.settings-panel h3{
+    color: #0875df;
+    margin-bottom: 15px;
+}
+.back-btn{
+    border: none;
+    background: transparent;
+    color: #1674d1;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.profile-dropdown.settings-open #profileMenu{
+    display: none;
+}
+
+.profile-dropdown.settings-open #settingsCard{
+    display: block;
+}
+
+.st-header h2 { margin: 0 0 4px; font-size: 26px; color: #1569c7; }
+.st-header p { margin: 0 0 18px; color: #777; font-size: 14px; }
+
+.st-profile { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; }
+
+.st-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: #eaf2ff;
+    color: #1569c7;
+    font-size: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid white;
+    box-shadow: 0 2px 10px rgba(21, 105, 199, 0.25);
+}
+.st-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.st-profile-info h3 { margin: 0 0 2px; font-size: 20px; color: #222; }
+.st-profile-info > span { font-size: 13px; color: #777; }
+.st-photo-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+.st-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.st-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.st-card-head h3 { margin: 0; font-size: 16px; color: #333; }
+
+.st-field { margin-bottom: 12px; }
+.st-field label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: #666; }
+.st-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+}
+.st-field input:disabled { background: #f6f8fb; color: #555; border-color: #eee; }
+.st-field input:focus { outline: none; border-color: #1a66d1; box-shadow: 0 0 0 3px rgba(26, 102, 209, 0.15); }
+
+.st-actions { display: flex; gap: 8px; margin-top: 6px; }
+.st-actions[hidden], .st-link-btn[hidden] { display: none !important; }
+
+.st-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.st-btn:hover { opacity: 0.9; }
+.st-btn-primary { background: #1a66d1; color: #fff; }
+.st-btn-light { background: #e8f1ff; color: #2878d0; }
+.st-btn-ghost { background: #f1f1f1; color: #555; }
+
+.st-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background: none;
+    color: #1a66d1;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.st-msg { min-height: 18px; margin: 0 0 8px; font-size: 13px; }
+.st-msg.error { color: #d9534f; }
+.st-msg.ok { color: #2e9d57; }
+
+#profileBtn{
+    overflow: hidden;
+}
+
+#profileBtn img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#scheduleDisplay {
+    overflow: hidden;
+    border-radius: 18px;
+    background: transparent;
+    color: #f1f5f9;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+}
+
+/* Each day */
+.schedule-day-row {
+    display: grid;
+    grid-template-columns: 85px 5px minmax(0, 1fr);
+    gap: 22px;
+
+    padding: 12px 20px;
+    align-items: stretch;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.schedule-day-row:last-child {
+    border-bottom: none;
+}
+
+/* Day and date */
+.schedule-day-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.schedule-day-label strong {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.schedule-day-label span {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+/* Vertical line */
+.schedule-day-indicator {
+    width: 5px;
+    border-radius: 20px;
+    background: #6366f1;
+    min-height: 75px;
+}
+
+/* Class area */
+.schedule-day-classes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+/* Individual subject */
+.schedule-class {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 0;
+}
+
+/* Subject title */
+.schedule-class h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #f1f5f9;
+}
+
+/* Class details */
+.schedule-class p {
+    margin: 0;
+    font-size: 13px;
+    color: #a5b4cc;
+}
+
+/* Actions */
+.schedule-class-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+/* Muted */
+.schedule-class.muted {
+    opacity: 0.45;
+}
+
+.muted-label {
+    color: #fbbf24 !important;
+    font-size: 12px !important;
+}
+
+/* Delete button */
+.schedule-class .delete-btn {
+    border: 1px solid rgba(248, 113, 113, 0.18);
+    background: rgba(248, 113, 113, 0.08);
+    color: #f87171;
+
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.schedule-class .delete-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* Mute button */
+.schedule-class .mute-btn {
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: rgba(148, 163, 184, 0.08);
+    color: #cbd5e1;
+
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.schedule-class .mute-btn:hover {
+    background: rgba(148, 163, 184, 0.2);
+}
+
+*::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+*::-webkit-scrollbar-button{
+    display: none;
+}
+
+*::-webkit-scrollbar-thumb{
+    background: #9aa3ad;
+    border-radius: 10px;
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+    .schedule-day-row {
+        grid-template-columns: 55px 4px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .schedule-day-label strong {
+        font-size: 13px;
+    }
+
+    .schedule-day-label span {
+        font-size: 12px;
+    }
+
+    .schedule-class h3 {
+        font-size: 14px;
+    }
 }

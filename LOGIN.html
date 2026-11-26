@@ -40,6 +40,7 @@
     <h5 class = "STAY1"> Focused </h5>
     <div class = "LOGINFORM">
                 
+            <form id = "loginForm">
                 <div class = "LOGIN-ICON">
                     <i class = "fa-regular fa-user"></i>
                 </div>
@@ -50,12 +51,12 @@
                 <h3 class = "EMAIL-ADDRESS"> Email Address </h3>
                 <div class = "INPUT-EMAIL">
                     <i class = "fa-regular fa-envelope"></i>
-                    <input type = "email" placeholder="Enter Email Address">
+                    <input type = "email" id = "email" name = "email" placeholder="Enter Email Address" required>
                 </div>
                 <h3 class = "PASSWORD"> Password </h3>
                 <div class = "INPUT-PASSWORD">
                     <i class = "fa-solid fa-lock"></i>
-                    <input type = "password" placeholder="Enter Password">
+                    <input type = "password" id = "password" name = "password" placeholder="Enter Password" required>
                 </div>
                 <div class = "REMEMBER-ME">
                     <input type = "checkbox" id = "Remeber-Me">
@@ -77,8 +78,18 @@
                     Continue with Google
                 </button>
                 <p class = "NO-ACCOUNT"> Don't have an account? </p>
-                <a class = "SIGN-UP" href=""> Sign up</a>
-
+                <a class = "SIGN-UP" href="SIGNUP.html"> Sign up</a>
+            </form>
+    </div>
+    <div id = "loginPopup" class = "login-popup">
+        <div class = "login-card">
+            <div id = "loginAnimation" class = "login-animation">
+                <div class = "login-spinner"></div>
             </div>
+            <h3 id = "loginTitle"> Checking Account </h3>
+            <p id = "loginMessage"> Please wait...</p>
+        </div>
+    </div>
+    <script src = "LOGIN.js"></script>
 </body>
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="SIGNUP.css">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href = "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel = "styleheet">
+
+</head>
+<body>
+    <div class = "LOGIN-BACKGROUND"></div>
+    <div class = "LOGO">
+        <i class = "fa-solid fa-calendar-days"></i>
+    </div>
+    <h1 class = "LOGIN-TITLE1"> Ayo </h1>
+    <h1 class = "LOGIN-TITLE2"> Sched </h1>
+    <h3 class = "LOGIN-DESC"> STUDENT SCHEDULE MANAGER </h3>
+    <h1 class = "PLAN"> Plan </h1>
+    <h1 class = "TODAY"> Today </h1>
+    <h1 class = "ACHIEVE"> Achieve </h1>
+    <h1 class = "TOMORROW"> Tomorrow </h1>
+    <h3 class = "LOGIN-DESC1"> Your classes, schedule, and goals -</h3>
+    <h3 class = "LOGIN-DESC2"> all in one place </h3>
+    <div class = "LOGIN-CALENDAR">
+        <i class = "fa-regular fa-calendar"></i>
+    </div>
+    <h5 class = "MANAGE"> Manage </h5>
+    <h5 class = "MANAGE1"> Your schedule </h5>
+    <div class = "LOGIN-BOOK">
+        <i class = "fa-solid fa-book"></i>
+    </div>
+    <h5 class = "TRACK"> Track </h5>
+    <h5 class = "TRACK1"> Your subject </h5>
+    <div class = "LOGIN-CHART">
+        <i class = "fa-solid fa-chart-simple"></i>
+    </div>
+    <h5 class = "STAY"> Stay </h5>
+    <h5 class = "STAY1"> Focused </h5>
+
+    <section class="card" aria-labelledby="signup-title">
+      <h2 id="signup-title">Create account</h2>
+      <p class="sub">Fill in your details to sign up.</p>
+
+      <form id="signupForm" novalidate>
+        <div class="row">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Juan">
+            <small class="error" id="firstNameError"></small>
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Dela Cruz">
+            <small class="error" id="lastNameError"></small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@school.edu">
+          <small class="error" id="emailError"></small>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="pw">
+            <input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+            <button type="button" class="toggle" data-target="password" aria-label="Show password">Show</button>
+          </div>
+          <div class="meter" aria-hidden="true"><span id="meterBar"></span></div>
+          <small class="hint" id="meterText">Use letters, numbers, and a symbol.</small>
+          <small class="error" id="passwordError"></small>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirm password</label>
+          <div class="pw">
+            <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Re-enter password">
+            <button type="button" class="toggle" data-target="confirmPassword" aria-label="Show password">Show</button>
+          </div>
+          <small class="error" id="confirmPasswordError"></small>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" id="terms">
+          <span>I agree to the Terms and Privacy Policy</span>
+        </label>
+        <small class="error" id="termsError"></small>
+
+        <p class="message" id="formMessage" role="status" aria-live="polite"></p>
+
+        <button type="submit" class="primary" id="submitBtn">Create account</button>
+      </form>
+
+      <div class="divider"><span>or with</span></div>
+      <button type="button" class="google" id="googleBtn">Continue with Google</button>
+
+      <p class="switch">Already have an account? <a href="login.html">Log in</a></p>
+    </section>
+  </main>
+  <div id = "loginPopup" class = "login-popup">
+    <div class = "login-card">
+      <div id = "loginAnimation" class = "login-animation">
+        <div class = "login-spinner"></div>
+      </div>
+      <h3 id = "loginTitle"> Creating Account </h3>
+      <p id = "loginMessage"> Please wait...</p>
+    </div>
+  </div>
+  <script src="SIGNUP.js"></script>
+</body>
+</html>

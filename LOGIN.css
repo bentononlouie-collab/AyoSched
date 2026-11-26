@@ -6,7 +6,7 @@ body{
 .LOGIN-BACKGROUND{
     position: fixed;
     inset: 0;
-    background-image: url("74be4539-c820-4785-bf2e-b3800f8c0a25.jpg");
+    background-image: url("900064213_1687162726147057_8388703811335565039_n.jpg");
     background-size: cover;
     background-position: center;
     z-index: -1;
@@ -38,7 +38,7 @@ body{
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
-    color: blue;
+    color: #d6f0ff;
     position: absolute;
     top: 150px;
     left: 300px;
@@ -479,4 +479,118 @@ body{
     bottom: 45px;
     right: 100px;
     cursor: pointer;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    caret-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus{
+    -webkit-text-fill-color: white;
+    transition: background-color 9999s;
+}
+
+.login-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.login-popup.show {
+    display: flex;
+}
+
+.login-card {
+    width: 260px;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    animation: popupAppear 0.3s ease;
+}
+
+.login-animation {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-spinner {
+    width: 42px;
+    height: 42px;
+    border: 5px solid #cce5ff;
+    border-top: 5px solid #168bff;
+    border-radius: 50%;
+    animation: loginSpin 0.8s linear infinite;
+}
+
+.login-icon {
+    font-size: 55px;
+    font-weight: bold;
+    animation: iconAppear 0.3s ease;
+}
+
+.login-success {
+    color: #168bff;
+}
+
+.login-error {
+    color: #e53935;
+}
+
+.login-card h3 {
+    margin: 5px 0;
+    color: #173b63;
+}
+
+.login-card p {
+    margin: 8px 0 0;
+    color: #777;
+    font-size: 14px;
+}
+
+@keyframes loginSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes iconAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

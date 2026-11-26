@@ -1,0 +1,540 @@
+body{
+    margin: 0;
+    min-height: 100vh;
+}
+
+.card {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  width: 440px;
+  padding: 22px 28px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+}
+
+.card h2 {
+  font-size: 30px;
+}
+
+.sub {
+  margin: 3px 0 14px;
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row .field {
+  flex: 1;
+}
+
+.field {
+  margin-bottom: 9px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 190px;
+  padding: 9px 12px;
+  font-size: 15px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  outline: none;
+}
+
+input[type="password"]{
+  width: 370px;
+  padding: 9px 12px;
+  font-size: 15px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  outline: none;
+}
+
+input[type="email"]{
+  width: 417px;
+  padding: 9px 12px;
+  font-size: 15px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #cfd8ee;
+}
+
+input:focus {
+  border-color: #ffffff;
+}
+
+input.invalid {
+  border-color: #ff9a9a;
+}
+
+.pw {
+  position: relative;
+}
+
+.pw input {
+  padding-right: 60px;
+}
+
+.toggle {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.meter {
+  height: 4px;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #ff6b6b;
+}
+
+.hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.error {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ff9a9a;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.check input {
+  margin-right: 8px;
+}
+
+.message {
+  margin: 6px 0;
+  min-height: 0;
+  font-size: 14px;
+}
+
+.message.ok {
+  color: #9ff0c0;
+}
+
+.message.fail {
+  color: #ff9a9a;
+}
+
+.primary {
+  width: 100%;
+  padding: 11px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background: #3b2fb5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.primary:hover {
+  background: #5a3fd0;
+}
+
+.primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.divider {
+  margin: 12px 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.google {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  color: #333333;
+  background: #ffffff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.switch {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.switch a {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.LOGIN-BACKGROUND{
+    position: fixed;
+    inset: 0;
+    background-image: url("900064213_1687162726147057_8388703811335565039_n.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.LOGO{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 42px;
+    color: white;
+    position: absolute;
+    top: 175px;
+    left: 200px;
+    cursor: default;
+}
+
+.LOGIN-TITLE1{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    top: 150px;
+    left: 250px;
+    cursor: default;
+}
+
+.LOGIN-TITLE2{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    color: #d6f0ff;
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    cursor: default;
+}
+
+.LOGIN-DESC{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 190px;
+    left: 250px;
+    cursor: default;
+}
+
+.PLAN{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: white;
+    position: absolute;
+    top: 230px;
+    left: 200px;
+    cursor: default;
+}
+
+.TODAY{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: white;
+    position: absolute;
+    top: 230px;
+    left: 340px;
+    cursor: default;
+}
+
+.ACHIEVE{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: white;
+    position: absolute;
+    top: 300px;
+    left: 200px;
+    cursor: default;
+}
+
+.TOMORROW{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 65px;
+    color: blue;
+    position: absolute;
+    top: 300px;
+    left: 430px;
+    cursor: default;
+}
+
+.LOGIN-DESC1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    top: 420px;
+    left: 200px;
+    cursor: default;
+}
+
+.LOGIN-DESC2{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    top: 440px;
+    left: 200px;
+    cursor: default;
+}
+
+.LOGIN-CALENDAR{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 200px;
+    cursor: default;
+}
+
+.MANAGE{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 250px;
+    cursor: default;
+}
+
+.MANAGE1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 65px;
+    left: 250px;
+    cursor: default;
+}
+
+.LOGIN-BOOK{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 370px;
+    cursor: default;
+}
+
+.TRACK{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 420px;
+    cursor: default;
+}
+
+.TRACK1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 65px;
+    left: 420px;
+    cursor: default;
+}
+
+.LOGIN-CHART{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 540px;
+    cursor: default;
+}
+
+.STAY{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 80px;
+    left: 590px;
+    cursor: default;
+}
+
+.STAY1{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 65px;
+    left: 590px;
+    cursor: default;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"]{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    caret-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus{
+    -webkit-text-fill-color: white;
+    transition: background-color 9999s;
+}
+
+.login-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.login-popup.show {
+    display: flex;
+}
+
+.login-card {
+    width: 260px;
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    animation: popupAppear 0.3s ease;
+}
+
+.login-animation {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-spinner {
+    width: 42px;
+    height: 42px;
+    border: 5px solid #cce5ff;
+    border-top: 5px solid #168bff;
+    border-radius: 50%;
+    animation: loginSpin 0.8s linear infinite;
+}
+
+.login-icon {
+    font-size: 55px;
+    font-weight: bold;
+    animation: iconAppear 0.3s ease;
+}
+
+.login-success {
+    color: #168bff;
+}
+
+.login-error {
+    color: #e53935;
+}
+
+.login-card h3 {
+    margin: 5px 0;
+    color: #173b63;
+}
+
+.login-card p {
+    margin: 8px 0 0;
+    color: #777;
+    font-size: 14px;
+}
+
+@keyframes loginSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes iconAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
