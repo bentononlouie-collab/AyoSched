@@ -23,44 +23,63 @@
             <span id = "welcomeName"> User </span>
             <span id = "role"> Role </span>
         </div>
+        <div class = "NOTIFICATION-BTN" id = "notificationBtn">
+            <i class = "fa-solid fa-bell"></i>
+            <span id = "notificationCount" class = "notification-badge">0</span>
+        </div>
         <span class = "dropdown-arrow"> v </span>
+    </div>
+    <div class = "notification-dropdown" id = "notificationDropdown">
+        <div class = "notification-header">
+            <h3> Upcoming Tasks & Events </h3>
+            <button id = "closeNotifications"> &times; </button>
+        </div>
+        <div id = "notificationList">
+            <p class = "notification-empty"> No upcoming notifications. </p>
+        </div>
     </div>
     <h1 class = GREETING> Good Day, <span id = "goodName"> User </span></h1>
     <div id = "dashboardView">
     <form id = "scheduleForm">
     <div class = "ADD">
         <h1 class = "ADD-TITLE"> Add New Schedule </h1>
-        <h1 class = "ADD-TITLE1"> Subject Name </h1>
+        <select id = "scheduleCategory" class = "ADD-CATEGORY-SELECT">
+            <option value = "educational">Educational</option>
+            <option value = "personal">Personal</option>
+        </select>
+        <h1 class = "ADD-TITLE1" id = "subjectTitle"> Subject Name </h1>
         <div class = "ADD-SUBJECT">
             <input type = "text" id = "subjectName" placeholder = "Enter Subject">
         </div>
-        <h1 class = "ADD-TITLE2"> Instructor </h1>
-        <div class = "ADD-INSTRUCTOR">
+        <h1 class = "ADD-TITLE2 edu-only"> Instructor </h1>
+        <div class = "ADD-INSTRUCTOR edu-only">
             <input type = "text" id = "instructor" placeholder = "Enter Instructor Name">
         </div>
         <h1 class = "ADD-TITLE3"> Location </h1>
         <div class = "ADD-LOCATION">
             <input type = "text" id = "location" placeholder = "Enter Location">
         </div>
-        <h1 class = "ADD-TITLE4"> Day </h1>
+        <h1 class = "ADD-TITLE4"> Date </h1>
         <div class = "ADD-DAY">
-            <input type = "text" id = "day" placeholder = "Monday">
+            <input type = "date" id = "scheduleDate" placeholder = "Select date">
         </div>
         <h1 class = "ADD-TITLE5"> Schedule Type </h1>
         <div class = "ADD-SCHEDULE-TYPE">
-            <input type = "text" id = "scheduleType" placeholder = "Lecture">
+            <select id = "scheduleType">
+                <option value = ""> Select Schedule Type </option>
+            </select>
         </div>
         <h1 class = "ADD-TITLE6"> Start Time </h1>
         <div class = "ADD-START">
-            <input type = "text" id = "startTime" placeholder = "08:00 AM">
+            <input type = "time" id = "startTime">
         </div>
         <h1 class = "ADD-TITLE7"> End Time </h1>
         <div class = "ADD-END">
-            <input type = "text" id = "endTime" placeholder = "09:00 AM">
+            <input type = "time" id = "endTime">
         </div>
-        <h1 class = "ADD-TITLE8"> Notes(Optional) </h1>
-        <div class = "ADD-NOTES">
-            <input type = "text" id= "notes" placeholder = "Additional Notes...">
+        <h1 class = "ADD-TITLE8"> Description </h1>
+        <div class = "ADD-DESCRIPTION">
+            <input type = "text" id = "description" placeholder = "Task description or details...">
         </div>
         <div class = "ADD-BUTTON">
             <form action = "">

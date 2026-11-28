@@ -5,16 +5,25 @@ document.getElementById("scheduleForm").addEventListener("submit", async functio
     const subjectName = document.getElementById("subjectName").value.trim();
     const instructor = document.getElementById("instructor").value.trim();
     const location = document.getElementById("location").value.trim();
-    const day = document.getElementById("day").value;
+    const scheduleDate = document.getElementById("scheduleDate").value;
     const scheduleType = document.getElementById("scheduleType").value;
     const startTime = document.getElementById("startTime").value;
     const endTime = document.getElementById("endTime").value;
-    const notes = document.getElementById("notes").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const category = document.getElementById("scheduleCategory").value;
+
+    // Convert selected date to day name
+    const day = scheduleDate ? new Date(scheduleDate).toLocaleDateString("en-US", { weekday: "long" }) : "";
 
         if(!studentId){
             alert("Please log in first.");
             return;
         }
+
+    if(!scheduleDate){
+        alert("Please select a date.");
+        return;
+    }
 
         if(timeToMinutes(startTime) >= timeToMinutes(endTime)){
             alert("End time must be later than start time.");
@@ -22,24 +31,27 @@ document.getElementById("scheduleForm").addEventListener("submit", async functio
         }
 
         try{
-            const response = await fetch("http://localhost:8080/api/student/schedules", {
+            const response = await fetch("http://127.0.0.1:8080/api/student/schedules", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                }, body: JSON.stringify({
+                }, credentials: 'include', body: JSON.stringify({
                     studentId: studentId,
                     subjectName: subjectName,
                     instructor: instructor,
                     location: location,
                     day: day,
+                    scheduleDate: scheduleDate,
                     scheduleType: scheduleType,
                     startTime: startTime,
                     endTime: endTime,
-                    notes: notes
+                    description: description,
+                    category: category
                 })
             });
 
             const result = await response.json();
+            console.log("Schedule response: ", response.status, result);
                 if(response.ok){
                     alert(result.message);
                     document.getElementById("scheduleForm").reset();
@@ -53,19 +65,52 @@ document.getElementById("scheduleForm").addEventListener("submit", async functio
         }
 });
 
+const categorySelect = document.getElementById("scheduleCategory");
+const subjectTitle = document.getElementById("subjectTitle");
+const subjectInput = document.getElementById("subjectName");
+const eduFields = document.querySelectorAll(".edu-only");
+
+function toggleCategoryFields(){
+    const isPersonal = categorySelect.value === "personal";
+    eduFields.forEach(el => {
+        if(isPersonal){
+            el.classList.add("hide");
+        } else {
+            el.classList.remove("hide");
+        }
+    });
+    if(isPersonal){
+        subjectTitle.textContent = "Task / Activity Name";
+        subjectInput.placeholder = "Enter task or activity...";
+        document.getElementById("instructor").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("scheduleType").value = "";
+    } else {
+        subjectTitle.textContent = "Subject Name";
+        subjectInput.placeholder = "Enter Subject";
+    }
+}
+
+categorySelect.addEventListener("change", toggleCategoryFields);
+toggleCategoryFields();
+
 async function checkScheduleConflicts(){
     const studentId = localStorage.getItem("studentId");
 
         try{
-            const response = await fetch (`http://localhost:8080/api/student/schedules/conflicts?studentId=${studentId}`);
+            const response = await fetch(`http://127.0.0.1:8080/api/student/schedules/conflicts?studentId=${studentId}`, {
+                credentials: 'include'
+            });
                 if(!response.ok){
                     alert("Unable to check schedule conflicts");
                     return;
                 }
             const data = await response.json();
+            console.log("FULL CONFLICT DATA:", data);
             const conflicts = data.conflicts || [];
             const recommendedScheduleIds = data.recommendedScheduleIds || [];
             console.log("Conflict response:", conflicts);
+            console.log("First conflict: ", conflicts[0]);
 
                 if(conflicts.length === 0){
                     alert("No schedule conflicts found!");
@@ -80,13 +125,22 @@ async function checkScheduleConflicts(){
                 await loadStudentSchedules();
                 const newest = allSchedules.reduce((a, b) => (a.id > b.id ? a : b));
                 const recommendedSet = new Set(recommendedScheduleIds.map(Number));
-                const recommendedConflict = conflicts.find(pair => recommendedSet.has(Number(pair.firstSchedule.id)) || recommendedSet.has(Number(pair.secondSchedule.id)));
-                const selectedConflict = recommendedConflict || conflicts.find(pair => Number(pair.firstSchedule.id) === Number(newest.id) || Number(pair.secondSchedule.id) === Number(newest.id)) || conflicts[0];
-                const recommendedId = recommendedConflict? (
-                    recommendedSet.has(Number(recommendedConflict.firstSchedule.id))
-                    ? recommendedConflict.firstSchedule.id
-                    : recommendedConflict.secondSchedule.id
-                ) : newest.id;
+                const recommendedConflict = conflicts.find(pair =>
+    recommendedSet.has(Number(pair.firstScheduleId)) ||
+    recommendedSet.has(Number(pair.secondScheduleId))
+);
+                const selectedConflict = recommendedConflict ||
+    conflicts.find(pair =>
+        Number(pair.firstScheduleId) === Number(newest.id) ||
+        Number(pair.secondScheduleId) === Number(newest.id)
+    ) || conflicts[0];
+                const recommendedId = recommendedConflict
+    ? (
+        recommendedSet.has(Number(recommendedConflict.firstScheduleId))
+            ? recommendedConflict.firstScheduleId
+            : recommendedConflict.secondScheduleId
+    )
+    : newest.id;
                 showConflictCard(selectedConflict, recommendedId)
         }catch(error){
             console.error("Conflict Check Error: ", error);
@@ -105,10 +159,13 @@ async function loadStudentSchedules() {
         }
 
         try{
-            const response = await fetch ("http://localhost:8080/api/student/schedules?studentId=" + studentId);
+            const response = await fetch("http://127.0.0.1:8080/api/student/schedules?studentId=" + studentId, {
+                credentials: 'include'
+            });
 
                 if(!response.ok){
-                    throw new Error("Failed to retrieve schedules.");
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || "Failed to retrieve schedules: " + response.status);
                 }
 
             allSchedules = await response.json();
@@ -137,142 +194,226 @@ function priorityInfo(p){
     return {label: "Minimal", cls: "p-min"};
 }
 
+
 function displaySchedules(selectedDay = "all"){
     const scheduleDisplay = document.getElementById("scheduleDisplay");
-    let filteredSchedules = allSchedules;
 
-        if(selectedDay !== "all"){
-            filteredSchedules = allSchedules.filter(schedule => schedule.day.toLowerCase() === selectedDay.toLowerCase());
-        }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-        if(filteredSchedules.length === 0){
-            scheduleDisplay.innerHTML = `<div class = "EMPTY" id = "scheduleDisplay">
-            <i class = "fa-regular fa-calendar-check"></i>
-            <h2 class = "NOTES"> No Classes Schedule Yet </h2>
-            <p class = "NOTES1"> Add a schedule to see your weekly timetable here. </p>
-        </div>`;
-            return;
-        }
+    let filteredSchedules = allSchedules.filter(schedule => {
+        if (!schedule.scheduleDate) return false;
 
-        const weekdayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        // Parse the actual calendar date safely
+       const scheduleDate = new Date(schedule.scheduleDate);
+scheduleDate.setHours(0, 0, 0, 0);
 
-    const groupedSchedules = {};
-
-    filteredSchedules.forEach(schedule => {
-        const matchedDay = weekdayOrder.find(day =>
-            day.toLowerCase() === schedule.day.toLowerCase()
-        );
-
-        if (!matchedDay) return;
-
-        if (!groupedSchedules[matchedDay]) {
-            groupedSchedules[matchedDay] = [];
-        }
-
-        groupedSchedules[matchedDay].push(schedule);
+return scheduleDate >= today;
     });
 
-    // GET THE MONDAY OF THIS WEEK
-    const currentDate = new Date();
-    const weekMonday = new Date(currentDate);
-
-    weekMonday.setDate(currentDate.getDate() - ((currentDate.getDay() + 6) % 7));
-
-    // GET DATE FOR EACH DAY
-    function getDateForDay(day) {
-        const index = weekdayOrder.indexOf(day);
-        const date = new Date(weekMonday);
-
-        date.setDate(weekMonday.getDate() + index);
-
-        return date.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric"
-        });
+    if(selectedDay !== "all"){
+        filteredSchedules = filteredSchedules.filter(schedule =>
+            schedule.day?.toLowerCase() === selectedDay.toLowerCase()
+        );
     }
 
-    // RENDER GROUPED SCHEDULES
-    scheduleDisplay.innerHTML = weekdayOrder
-        .filter(day => groupedSchedules[day])
-        .map(day => {
+    // Sort by actual date, then start time
+    filteredSchedules.sort((a, b) => {
+        const dateCompare = a.scheduleDate.localeCompare(b.scheduleDate);
 
-            const dayClasses = groupedSchedules[day];
+        if(dateCompare !== 0) return dateCompare;
 
-            return `
-                <div class="schedule-day-row">
+        return a.startTime.localeCompare(b.startTime);
+    });
 
-                    <div class="schedule-day-label">
-                        <strong>${day.substring(0, 3)}</strong>
-                        <span>${getDateForDay(day)}</span>
-                    </div>
+    if(filteredSchedules.length === 0){
+        scheduleDisplay.innerHTML = `
+            <div class="EMPTY">
+                <i class="fa-regular fa-calendar-check"></i>
+                <h2 class="NOTES">No Upcoming Schedules</h2>
+                <p class="NOTES1">Add a schedule to see it here.</p>
+            </div>
+        `;
+        return;
+    }
 
-                    <div class="schedule-day-indicator"></div>
+    scheduleDisplay.innerHTML = filteredSchedules.map(schedule => {
+        const [year, month, day] = schedule.scheduleDate.split("-").map(Number);
 
-                    <div class="schedule-day-classes">
+        const formattedDate = new Date(schedule.scheduleDate)
+    .toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
 
-                        ${dayClasses.map(schedule => `
-                            <div class="schedule-class ${schedule.mutedToday ? 'muted' : ''}">
+        return `
+            <div class="schedule-day-row">
 
-                                ${schedule.mutedToday ? `
-                                    <p class="muted-label">Muted Today</p>
-                                ` : ''}
+                <div class="schedule-day-label">
+                    <strong>${formattedDate}</strong>
+                    <span>${schedule.day}</span>
+                </div>
 
-                                <h3>${schedule.subjectName ?? ""}</h3>
+                <div class="schedule-day-indicator"></div>
 
-                                <p>
-                                    ${formatTime(schedule.startTime)}
-                                    - ${formatTime(schedule.endTime)},
-                                    ${schedule.location ?? ""}
-                                </p>
+                <div class="schedule-day-classes">
 
-                                <p>${schedule.instructor ?? ""}</p>
+                    <div class="schedule-class ${schedule.mutedToday ? 'muted' : ''}">
 
-                                <div class="schedule-class-actions">
+                        ${schedule.mutedToday ? `
+                            <p class="muted-label">Muted Today</p>
+                        ` : ''}
 
-                                    <span class="priority-badge ${priorityInfo(schedule.priority).cls}">
-                                        ${priorityInfo(schedule.priority).label}
-                                        (${schedule.priority ?? 1})
-                                    </span>
+                        <h3>${schedule.scheduleType ?? schedule.subjectName ?? ""}</h3>
 
-                                    ${schedule.day.toLowerCase() === currentDate.toLocaleDateString("en-US", {
-                                        weekday: "long"
-                                    }).toLowerCase() && !schedule.mutedToday ? `
-                                        <button class="mute-btn" type="button"
-                                            onclick="muteSchedule(${schedule.id})">
-                                            <i class="fa-solid fa-bell-slash"></i>
-                                        </button>
-                                    ` : ''}
+                        <span class="cat-badge">
+                            ${schedule.category === "educational" ? "ACADEMIC" : "PERSONAL"}
+                        </span>
 
-                                    <button class="delete-btn" type="button"
-                                        onclick="deleteSchedule(${schedule.id})">
-                                        <i class="fa-solid fa-trash"></i>
-                                        Delete
-                                    </button>
+                        ${schedule.priorityRank ? `
+                            <span class="priority-rank-badge priority-rank-${schedule.priorityRank}">
+                                #${schedule.priorityRank}
+                            </span>
+                        ` : ''}
 
-                                </div>
-                            </div>
-                        `).join("")}
+                        <p>
+                            ${formatTime(schedule.startTime)}
+                            - ${formatTime(schedule.endTime)},
+                            ${schedule.location ?? ""}
+                        </p>
 
+                        ${schedule.description ? `
+                            <p style="font-size:12px;color:#94a3b8;margin:4px 0 0 0;">
+                                ${schedule.description}
+                            </p>
+                        ` : ''}
+
+                        <p>${schedule.instructor ?? ""}</p>
+
+                        <div class="schedule-class-actions">
+
+                            <span class="priority-badge ${priorityInfo(schedule.priority).cls}">
+                                Priority Level = ${schedule.priority ?? 1}
+                            </span>
+
+                            ${schedule.scheduleDate ===
+                                `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
+                                && !schedule.mutedToday ? `
+                                <button class="mute-btn" type="button"
+                                    onclick="muteSchedule(${schedule.id})">
+                                    <i class="fa-solid fa-bell-slash"></i>
+                                </button>
+                            ` : ''}
+
+                            <button class="delete-btn" type="button"
+                                onclick="deleteSchedule(${schedule.id})">
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </button>
+
+                        </div>
                     </div>
                 </div>
-            `;
-        }).join("");
-        
+            </div>
+        `;
+    }).join("");
 }
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    days.forEach(day => {
-        const button = document.getElementById(day.toLowerCase() + "btn");
 
-            if(button){
-                button.addEventListener("click", () => {
-                    displaySchedules(day);
-                });
-            }
-    });
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+days.forEach(day => {
+    const button = document.getElementById(day.toLowerCase() + "btn");
+
+    if(button){
+        button.addEventListener("click", () => {
+            displaySchedules("all");
+        });
+    }
+});
 
 loadStudentSchedules();
 setInterval(updateStats, 60000);
+
+// --- Notification System ---
+const notificationBtn = document.getElementById("notificationBtn");
+const notificationDropdown = document.getElementById("notificationDropdown");
+const notificationCount = document.getElementById("notificationCount");
+const notificationList = document.getElementById("notificationList");
+const closeNotifications = document.getElementById("closeNotifications");
+
+let notificationInterval;
+
+async function loadNotifications(){
+    const studentId = localStorage.getItem("studentId");
+    if(!studentId) return;
+
+    try{
+        const response = await fetch(`http://127.0.0.1:8080/api/student/schedules/upcoming?studentId=${studentId}&minutesAhead=30`, {
+            credentials: 'include'
+        });
+        if(!response.ok) return;
+        const notifications = await response.json();
+
+        notificationCount.textContent = notifications.length;
+        notificationCount.style.display = notifications.length > 0 ? "flex" : "none";
+
+        renderNotifications(notifications);
+    }catch(error){
+        console.error("Notification loading error:", error);
+    }
+}
+
+function renderNotifications(notifications){
+    if(notifications.length === 0){
+        notificationList.innerHTML = '<p class="notification-empty">No upcoming notifications.</p>';
+        return;
+    }
+
+    notificationList.innerHTML = notifications.map(n => {
+        const p = n.priority || 1;
+        const priorityClass = p >= 4 ? "high-priority" : p === 3 ? "medium-priority" : "";
+        const icon = p >= 4 ? "fa-exclamation-triangle" : p === 3 ? "fa-clock" : "fa-check-circle";
+        return `
+            <div class="notification-item ${priorityClass}">
+                <div class="notification-item-icon">
+                    <i class="fa-solid ${icon}"></i>
+                </div>
+                <div class="notification-item-content">
+                    <h4>${n.subjectName || "Task"}</h4>
+                    <p>${n.description || "No description"}</p>
+                    <p>${n.location ? "📍 " + n.location : ""}</p>
+                    <p class="notification-item-time">⏰ ${formatTime(n.startTime)} - ${formatTime(n.endTime)} • ${n.day}</p>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+notificationBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    notificationDropdown.style.display = notificationDropdown.style.display === "block" ? "none" : "block";
+    if(notificationDropdown.style.display === "block"){
+        loadNotifications();
+    }
+});
+
+closeNotifications?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    notificationDropdown.style.display = "none";
+});
+
+document.addEventListener("click", (e) => {
+    if(!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)){
+        notificationDropdown.style.display = "none";
+    }
+});
+
+// Poll notifications every 60 seconds
+notificationInterval = setInterval(loadNotifications, 60000);
+loadNotifications();
 
 function updateStats() {
     const total = new Set(allSchedules.map(s => (s.subjectName || "").trim().toLowerCase()).filter(Boolean)).size;
@@ -317,9 +458,10 @@ function closeConflictCard(){
 }
 
 async function moveSchedule(id, slot){
-    const res = await fetch(`http://localhost:8080/api/student/schedules/${id}/time`, {
+    const res = await fetch(`http://127.0.0.1:8080/api/student/schedules/${id}/time`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
+        credentials: 'include',
         body: JSON.stringify({startTime: slot.start, endTime: slot.end})
     });
 
@@ -329,36 +471,136 @@ async function moveSchedule(id, slot){
 }
 
 async function showConflictCard(pair, recommendedId){
+
     const studentId = localStorage.getItem("studentId");
-    const s = Number(pair.firstSchedule.id) === Number(recommendedId) ? pair.firstSchedule : pair.secondSchedule;
-    const other = Number(pair.firstSchedule.id) === Number(recommendedId) ? pair.secondSchedule : pair.firstSchedule;
+
+    const firstId = Number(pair.firstScheduleId);
+    const secondId = Number(pair.secondScheduleId);
+
+    // Find the actual schedules from the loaded schedule list
+    const first = allSchedules.find(s => Number(s.id) === firstId);
+    const second = allSchedules.find(s => Number(s.id) === secondId);
+
+    if(!first || !second){
+        console.error("Unable to find conflicting schedules:", pair);
+        return;
+    }
+
+    // Select the schedule recommended for reconsideration
+    const s = Number(recommendedId) === firstId ? first : second;
+    const other = Number(recommendedId) === firstId ? second : first;
+
     const minutes = toMinutes(s.endTime) - toMinutes(s.startTime);
-    const res = await fetch(`http://localhost:8080/api/student/schedules/free-slots?studentId=${studentId}&day=${s.day}&minutes=${minutes}&excludeId=${s.id}`);
-    const slots = await res.json();
-    closeConflictCard();
-    const overlay = document.createElement("div");
-    overlay.id = "conflictOverlay";
-    overlay.innerHTML = `<div class = "conflict-card"> <h3> Schedule Conflict </h3> <p> Recommended to reconsider: <b>${s.subjectName}</b></p> <p><b>${s.subjectName}</b> overlaps <b>${other.subjectName}</b> (${formatTime(other.startTime)} - ${formatTime(other.endTime)}).</p> <p> Available time slots:</p> <div id="slotList"></div><button id="conflictKeep"> Keep as is</button> </div>`;
-    document.body.appendChild(overlay);
-    const list = overlay.querySelector("#slotList");
-    if(!slots.length) list.textContent = "No free slot of that length on this day.";
-    slots.forEach(slot => {
-        const btn = document.createElement("button");
-        btn.className = "slot-btn";
-        btn.textContent = `${formatTime(slot.start)} - ${formatTime(slot.end)}`;
-        btn.addEventListener("click", () => moveSchedule(s.id, slot));
-        list.appendChild(btn);
-    });
-    overlay.querySelector("#conflictKeep").addEventListener("click", closeConflictCard);
+
+    try {
+
+        const res = await fetch(
+            `http://127.0.0.1:8080/api/student/schedules/free-slots?studentId=${studentId}&day=${encodeURIComponent(s.day)}&minutes=${minutes}&excludeId=${s.id}`,
+            { credentials: 'include' }
+        );
+
+        if(!res.ok){
+            throw new Error("Unable to retrieve available time slots.");
+        }
+
+        const slots = await res.json();
+
+        closeConflictCard();
+
+        const overlay = document.createElement("div");
+        overlay.id = "conflictOverlay";
+
+        overlay.innerHTML = `
+            <div class="conflict-card">
+
+                <h3>Schedule Conflict</h3>
+
+                <p>
+                    Recommended to reconsider:
+                    <b>${s.subjectName}</b>
+                </p>
+
+                <p>
+                    <b>${s.subjectName}</b> overlaps
+                    <b>${other.subjectName}</b>
+                    (${formatTime(other.startTime)} -
+                    ${formatTime(other.endTime)}).
+                </p>
+
+                <p>Available time slots:</p>
+
+                <div id="slotList"></div>
+                <div class="manual-time-section"><p><b>Or enter your preferred time:</b></p><label>Start Time</label><input type="time"id="manualStartTime"><label>End Time</label><input type="time"id="manualEndTime"><button id="manualTimeSave" type="button">Save Custom Time</button></div>
+
+                <button id="conflictKeep" type="button">
+                    Keep as is
+                </button>
+
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        const list = overlay.querySelector("#slotList");
+
+        if(!slots.length){
+            list.textContent = "No free slot of that length on this day.";
+        }
+
+        slots.forEach(slot => {
+
+            const btn = document.createElement("button");
+
+            btn.className = "slot-btn";
+            btn.textContent =
+                `${formatTime(slot.start)} - ${formatTime(slot.end)}`;
+
+            btn.addEventListener("click", () => {
+                moveSchedule(s.id, slot);
+            });
+
+            list.appendChild(btn);
+
+        });
+
+        overlay.querySelector("#conflictKeep")
+            .addEventListener("click", closeConflictCard);
+        overlay.querySelector("#manualTimeSave").addEventListener("click", () => {
+            const start = overlay.querySelector("#manualStartTime").value;
+            const end = overlay.querySelector("#manualEndTime").value;
+                if(!start || !end){
+                    alert("Please enter both start and end times.");
+                    return;
+                }
+                if(toMinutes(end) <= toMinutes(start)){
+                    alert("End time must be later than start time.");
+                    return;
+                }
+                moveSchedule(s.id, {start, end});
+        });
+
+    } catch(error) {
+        console.error("Conflict Card Error:", error);
+        alert("Unable to load available time slots.");
+    }
 }
 
 function timeToMinutes(t){
-    const m = t.trim().toUpperCase().match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
-        if(m) return NaN;
-        let h = parseInt(m[1]);
-        if(m[3] === "PM" && h !== 12) h += 12;
-        if(m[3] === "AM" && h === 12) h= 0;
-        return h * 60 + parseInt(m[2]);
+    if(!t) return 0;
+    // Handle HTML5 time input format "HH:MM"
+    const m = t.trim().match(/^(\d{1,2}):(\d{2})$/);
+    if(m){
+        return parseInt(m[1]) * 60 + parseInt(m[2]);
+    }
+    // Handle "HH:MM AM/PM" format
+    const m2 = t.trim().toUpperCase().match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
+    if(m2){
+        let h = parseInt(m2[1]);
+        if(m2[3] === "PM" && h !== 12) h += 12;
+        if(m2[3] === "AM" && h === 12) h = 0;
+        return h * 60 + parseInt(m2[2]);
+    }
+    return 0;
 }
 
 const calendarPopup = document.getElementById("calendarPopup");
@@ -452,8 +694,9 @@ async function muteSchedule(scheduleId){
         }
 
         try{
-            const response = await fetch(`http://localhost:8080/api/student/schedules/${scheduleId}/mute?studentId=${studentId}`, {
-                method: "POST"
+            const response = await fetch(`http://127.0.0.1:8080/api/student/schedules/${scheduleId}/mute?studentId=${studentId}`, {
+                method: "POST",
+                credentials: 'include'
             });
             const result = await response.json();
                 if(!response.ok){
@@ -475,8 +718,9 @@ async function deleteSchedule(scheduleId) {
         }
 
         try{
-            const response = await fetch(`http://localhost:8080/api/student/schedules/${scheduleId}?studentId=${studentId}`,{
-                method: "DELETE"
+            const response = await fetch(`http://127.0.0.1:8080/api/student/schedules/${scheduleId}?studentId=${studentId}`,{
+                method: "DELETE",
+                credentials: 'include'
             });
             const result = await response.json();
                 if(!response.ok){
@@ -784,3 +1028,44 @@ const goodName = document.getElementById("goodName");
         const first = localStorage.getItem("firstName") || (localStorage.getItem("full_name") || localStorage.getItem("fullName") || "").split(" ")[0];
             goodName.textContent = first || "User";
     }
+
+    // Load schedule types based on selected category
+const scheduleCategorySelect = document.getElementById("scheduleCategory");
+const scheduleTypeSelect = document.getElementById("scheduleType");
+
+async function loadScheduleTypes() {
+    const category = scheduleCategorySelect.value;
+
+    scheduleTypeSelect.innerHTML =
+        '<option value="">Select Schedule Type</option>';
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:8080/api/admin/priorities"
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load schedule types.");
+        }
+
+        const priorities = await response.json();
+
+        priorities
+            .filter(priority => priority.category === category)
+            .forEach(priority => {
+                const option = document.createElement("option");
+                option.value = priority.schedule_type;
+                option.textContent = priority.schedule_type;
+
+                scheduleTypeSelect.appendChild(option);
+            });
+
+    } catch (error) {
+        console.error("Schedule type loading error:", error);
+    }
+}
+
+scheduleCategorySelect.addEventListener("change", loadScheduleTypes);
+
+// Load the default category's schedule types
+loadScheduleTypes();

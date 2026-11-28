@@ -1,0 +1,605 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body{
+    overflow-y: hidden;
+    background: linear-gradient(to bottom, #0f172a, #1e3a8a, #312e81);
+}
+
+.Admin-logo{
+    font-size: 26px;
+    color: #ffffff;
+    left: 20px;
+    position: absolute;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+    -webkit-text-stroke: 0.3px #142b55;
+    font-weight: bold;
+    cursor: default;
+    top: 20px;
+}
+
+.Ayo{
+    font-size: 26px;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+    left: 60px;
+    position: absolute;
+    -webkit-text-stroke: 0.3px #142b55;
+    font-weight: bold;
+    cursor: default;
+}
+
+.Sched{
+    font-size: 26px;
+    color: blue;
+    left: 105px;
+    position: absolute;
+    -webkit-text-stroke: 0.7px #142b55;
+    cursor: default;
+}
+
+.Icon{
+    width: 160px;
+    height: 60px;
+    background: white;
+    position: fixed;
+    right: 15px;
+    border-radius: 15px;
+    top: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.Icon{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: max-content;
+}
+
+.Icon:hover{
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.Profile{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 18px;
+    position: relative;
+}
+
+#ProfileBtn{
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    flex: 0 0 44px;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+}
+
+.User{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+#Name{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#Role{
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.Dropdown-arrow{
+    margin-left: 5px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.Profile i{
+    cursor: pointer;
+}
+
+.Dropdown-menu{
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 100%;
+    background: #1e3a8a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    z-index: 100;
+}
+
+.Dropdown-menu.open{
+    display: block;
+}
+
+.Dropdown-menu button{
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: 0;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.Dropdown-menu button:hover{
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.Settings-card{
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    padding: 16px;
+    background: #1e3a8a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    cursor: default;
+}
+.Settings-card.open{ display: block; }
+.Settings-card h3{ margin: 0 0 8px; font-size: 16px; }
+.Settings-card label{ display: block; margin: 10px 0 4px; font-size: 12px; opacity: .8; }
+.Settings-card input{
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+.Settings-card input::placeholder{ color: rgba(255, 255, 255, 0.5); }
+.Settings-card input:focus{ border-color: white; }
+.Settings-msg{ min-height: 18px; margin: 10px 0 0; font-size: 12px; color: #fca5a5; }
+.Settings-msg.ok{ color: #86efac; }
+.Settings-actions{ display: flex; gap: 8px; margin-top: 8px; }
+.Settings-actions button{
+    flex: 1; padding: 9px; border: 0; border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15); color: white; cursor: pointer;
+}
+#SaveBtn{ background: #3b82f6; }
+
+.Settings-card{
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 300px;
+    padding: 16px;
+    background: #1e3a8a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    cursor: default;
+    flex-direction: column;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+.Settings-card.open{ display: flex; }
+.Settings-card > *{ flex-shrink: 0; }
+
+.Settings-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.Back-btn{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+.Back-btn:hover{ background: rgba(255, 255, 255, 0.3); }
+.Settings-title{ font-size: 18px; font-weight: 700; color: white; }
+
+.Settings-profile{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.Settings-avatar{
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    overflow: visible;
+    flex-shrink: 0;
+}
+.Settings-avatar img{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.Avatar-edit{
+    position: absolute;
+    bottom: -2px;
+    left: auto;
+    right: -2px;
+    width: 24px;
+    height: 24px;
+    background: #3b82f6;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    border-radius: 50%;
+    border: 2px solid #1e3a8a;
+    color: white;
+}
+.Settings-user{ display: flex; flex-direction: column; gap: 2px; color: white; }
+.Settings-fullname{ font-size: 15px; font-weight: 600; }
+.Settings-role{ font-size: 12px; opacity: 0.7; }
+
+.Settings-card h3{ margin: 10px 0 4px; font-size: 16px; color: white; }
+.Settings-card label{
+    display: block;
+    margin: 10px 0 4px;
+    font-size: 12px;
+    color: white;
+    opacity: 0.8;
+}
+.Settings-card input[type="text"],
+.Settings-card input[type="password"]{
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+.Settings-card input::placeholder{ color: rgba(255, 255, 255, 0.5); }
+.Settings-card input:focus{ border-color: white; }
+
+.Settings-msg{ min-height: 18px; margin: 10px 0 0; font-size: 12px; color: #fca5a5; }
+.Settings-msg.ok{ color: #86efac; }
+
+.Settings-actions{ display: flex; gap: 8px; margin-top: 8px; }
+.Settings-actions button{
+    flex: 1;
+    padding: 9px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    cursor: pointer;
+}
+.Settings-actions button:hover{ background: rgba(255, 255, 255, 0.3); }
+#SaveBtn{ background: #3b82f6; }
+#SaveBtn:hover{ background: #2563eb; }
+
+.Profile{ overflow: hidden; }
+
+/* =================================
+   ADMIN MANAGEMENT PANELS
+================================= */
+
+.Priorities,
+.Admin-Categories,
+.Admin-ScheduleTimes {
+    position: absolute;
+    top: 90px;
+    width: 600px;
+    height: 420px;
+    padding: 20px;
+    background: #1e3a8a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    color: white;
+    box-sizing: border-box;
+    overflow-y: auto;
+    cursor: default;
+}
+
+/* Individual panel positions */
+
+.Priorities {
+    left: 18px;
+}
+
+.Admin-Categories {
+    left: 640px;
+}
+
+.Admin-ScheduleTimes {
+    left: 1262px;
+}
+
+/* Main headings */
+
+.Priorities h1,
+.Admin-Categories h1,
+.Admin-ScheduleTimes h1 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0 0 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Form layout */
+
+.Category-form,
+.ScheduleTime-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Form labels */
+
+.Priorities h3,
+.Category-form h3,
+.ScheduleTime-form h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    margin: 8px 0 2px;
+    position: static;
+}
+
+/* Inputs and selects */
+
+.Priorities input,
+.Category-form input,
+.Category-form select,
+.ScheduleTime-form input,
+.ScheduleTime-form select {
+    width: 100%;
+    height: 40px;
+    padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.Priorities input:focus,
+.Category-form input:focus,
+.Category-form select:focus,
+.ScheduleTime-form input:focus,
+.ScheduleTime-form select:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(147,197,253,0.15);
+}
+
+/* Dropdown options */
+
+.Priorities select option,
+.Category-form select option,
+.ScheduleTime-form select option {
+    background: #1e3a8a;
+    color: white;
+}
+
+/* Color picker */
+
+#catColor {
+    padding: 4px;
+    cursor: pointer;
+}
+
+/* Action buttons */
+
+.Priorities-actions,
+.Category-actions,
+.ScheduleTime-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.Priorities-actions button,
+.Category-actions button,
+.ScheduleTime-actions button {
+    flex: 1;
+    height: 38px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Cancel */
+
+.Cancel {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.Cancel:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* Save */
+
+.Save {
+    background: #3b82f6;
+    color: white;
+}
+
+.Save:hover {
+    background: #2563eb;
+}
+
+/* Section headings */
+
+.Priorities h2,
+.Admin-Categories h2,
+.Admin-ScheduleTimes h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 25px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Assigned lists */
+
+#priorityList,
+#categoryList,
+#scheduleTimeList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.Priorities{
+    position: absolute;
+    left: 10px;
+    top: 100px;
+    width: 400px;
+    height: 600px;
+}
+
+.priority-item,
+.category-item,
+.schedule-time-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: white;
+    box-sizing: border-box;
+}
+
+.Admin-ScheduleTimes{
+    position: absolute;
+    left: 830px;
+    top: 100px;
+    width: 400px;
+    height: 600px;
+}
+
+.Admin-Categories{
+    position: absolute;
+    left: 420px;
+    top: 100px;
+    width: 400px;
+    height: 600px;
+}
+
+.priority-item button,
+.category-item button,
+.schedule-time-item button {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    cursor: pointer;
+}
+
+.priority-item button:hover,
+.category-item button:hover,
+.schedule-time-item button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Scrollbar */
+
+.Priorities::-webkit-scrollbar,
+.Admin-Categories::-webkit-scrollbar,
+.Admin-ScheduleTimes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.Priorities::-webkit-scrollbar-thumb,
+.Admin-Categories::-webkit-scrollbar-thumb,
+.Admin-ScheduleTimes::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+/* Responsive layout */
+
+@media (max-width: 900px) {
+    .Priorities,
+    .Admin-Categories,
+    .Admin-ScheduleTimes {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        min-height: 350px;
+        margin-bottom: 20px;
+    }
+}

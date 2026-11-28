@@ -9,19 +9,60 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.HashMap;
+import jakarta.annotation.PostConstruct;
 
 
-@RestController 
-@CrossOrigin (origins = "*")
+@RestController
 public class Schedule {
     private final JdbcTemplate jdbcTemplate;
 
     public Schedule(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    @PostConstruct
+public void init(){
+    try{
+        jdbcTemplate.execute("ALTER TABLE schedules ADD COLUMN IF NOT EXISTS category VARCHAR(30) DEFAULT 'educational'");
+        jdbcTemplate.execute("ALTER TABLE schedules ADD COLUMN IF NOT EXISTS description TEXT");
+        jdbcTemplate.execute("ALTER TABLE schedules ADD COLUMN IF NOT EXISTS schedule_date DATE");
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+}
+
+    private Map<String, Integer> loadPriorityMap(){
+        Map<String, Integer> map = new HashMap<>();
+
+    try{
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+            "SELECT category, schedule_type, priority_level FROM priorities"
+        );
+
+        for(Map<String, Object> row : rows){
+            String category = (String) row.get("category");
+            String type = (String) row.get("schedule_type");
+            Number level = (Number) row.get("priority_level");
+
+            if(category != null && type != null && level != null){
+                String key = category.toLowerCase().trim() + "|" +
+                             type.toLowerCase().trim();
+
+                map.put(key, level.intValue());
+            }
+        }
+
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+
+    return map;
+}
+    
 
     @PostMapping("/api/student/schedules")
     public ResponseEntity<Map<String, String>> addSchedule(@RequestBody Map<String, String>schedule){
@@ -30,26 +71,53 @@ public class Schedule {
         String instructor = schedule.get("instructor");
         String location = schedule.get("location");
         String day = schedule.get("day");
+        String scheduleDate = schedule.get("scheduleDate");
         String scheduleType = schedule.get("scheduleType");
         String startTime = schedule.get("startTime");
         System.out.println("TYPE =[" + scheduleType + "] START =[" + startTime + "]");
         String endTime = schedule.get("endTime");
         String notes = schedule.get("notes");
+        String description = schedule.get("description");
+        String category = schedule.get("category");
+        if(category == null || category.isBlank()){
+            category = "educational";
+        }
 
-        Algorithm algorithm = new Algorithm();
-        int priority = algorithm.computePriority(scheduleType, startTime);
+        boolean isEducational = category.equalsIgnoreCase("educational");
 
-            if(studentId == null || subjectName == null || instructor == null || location == null || day == null || scheduleType == null || startTime == null || endTime == null || 
-               studentId.isBlank() || subjectName.isBlank() || instructor.isBlank() || location.isBlank() ||  day.isBlank() || scheduleType.isBlank() || startTime.isBlank() || endTime.isBlank()
+        if(studentId == null || subjectName == null || day == null || scheduleDate == null || startTime == null || endTime == null ||
+           studentId.isBlank() || subjectName.isBlank() || day.isBlank() || scheduleDate.isBlank() || startTime.isBlank() || endTime.isBlank()
+        ){
+            return ResponseEntity.badRequest().body(Map.of("message", "Please complete all required fields."));
+        }
+
+        if(isEducational){
+            if(instructor == null || location == null || scheduleType == null ||
+               instructor.isBlank() || location.isBlank() || scheduleType.isBlank()
             ){
                 return ResponseEntity.badRequest().body(Map.of("message", "Please complete all required fields."));
             }
-            String sql = "INSERT INTO schedules" + "(student_id, subject_name, instructor, location, " + "day, schedule_type, start_time, end_time, notes, priority)" + "VALUES (?, ?, ?, ?, ?, ?, CAST(? AS TIME), CAST(? AS TIME), ?, ?)";
-                try{
-                    jdbcTemplate.update(
-                        sql,
-                        Long.parseLong(studentId),subjectName,instructor,location,day,scheduleType,startTime,endTime,notes == null ? "" : notes, priority
-                    );
+        }else{
+            instructor = instructor == null ? "" : instructor;
+            location = location == null ? "" : location;
+            scheduleType = scheduleType == null ? "" : scheduleType;
+        }
+
+        Algorithm algorithm = new Algorithm();
+        Map<String, Integer> priorityMap = loadPriorityMap();
+            String priorityKey = category.toLowerCase().trim() + "|" + scheduleType.toLowerCase();
+                int priority = priorityMap.containsKey(priorityKey)
+                    ? priorityMap.get(priorityKey)
+                    : algorithm.computePriority(scheduleType, startTime);
+
+        String sql = "INSERT INTO schedules " +
+    "(student_id, subject_name, instructor, location, day, schedule_date, schedule_type, start_time, end_time, notes, priority, category, description) " +
+    "VALUES (?, ?, ?, ?, ?, CAST(? AS DATE), ?, CAST(? AS TIME), CAST(? AS TIME), ?, ?, ?, ?)";
+            try{
+                jdbcTemplate.update(
+                    sql,
+                    Long.parseLong(studentId),subjectName,instructor,location,day,scheduleDate,scheduleType,startTime,endTime,notes == null ? "" : notes, priority, category, description == null ? "" : description
+                );
 
                     return ResponseEntity.ok(Map.of("message", "Schedule added successfully!"));
                 }catch(Exception e){
@@ -59,38 +127,135 @@ public class Schedule {
     } 
     @GetMapping("/api/student/schedules/conflicts")
     public ResponseEntity<?>checkConflicts(@RequestParam Long studentId){
-        String sql = "SELECT id, subject_name, day, start_time, end_time, schedule_type " + "FROM schedules WHERE student_id = ? ORDER BY id ASC";
+        String sql = "SELECT id, subject_name, day, schedule_date, start_time, end_time, schedule_type, category " + "FROM schedules WHERE student_id = ? ORDER BY id ASC";
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, studentId);
         List<Algorithm.ScheduleEntry>schedules = new ArrayList <>();
 
-            for(Map<String, Object>row : rows){
-                schedules.add(new Algorithm.ScheduleEntry(((Number)row.get("id")).longValue(),
-                (String)row.get("subject_name"), 
-                (String)row.get("day"),
-                ((java.sql.Time)row.get("start_time")).toLocalTime(),
-                ((java.sql.Time)row.get("end_time")).toLocalTime(),
-                (String)row.get("schedule_type")));
-            }
+        Map<String, Integer> priorityMap = loadPriorityMap();
+
+            for(Map<String, Object> row : rows){
+
+    Object dateValue = row.get("schedule_date");
+    LocalDate scheduleDate = null;
+
+    if(dateValue instanceof java.sql.Date){
+        scheduleDate = ((java.sql.Date) dateValue).toLocalDate();
+    } else if(dateValue instanceof LocalDate){
+        scheduleDate = (LocalDate) dateValue;
+    }
+
+    schedules.add(new Algorithm.ScheduleEntry(
+        ((Number) row.get("id")).longValue(),
+        (String) row.get("subject_name"),
+        (String) row.get("day"),
+        scheduleDate,
+        ((java.sql.Time) row.get("start_time")).toLocalTime(),
+        ((java.sql.Time) row.get("end_time")).toLocalTime(),
+        (String) row.get("schedule_type"),
+        (String) row.get("category")
+    ));
+}
 
             Algorithm algorithm = new Algorithm();
-            Algorithm.AllocationResult allocation = algorithm.allocateGreedy(schedules);
+            Algorithm.AllocationResult allocation = algorithm.allocateGreedy(schedules, priorityMap);
             List<Long> recommendedScheduleIds = new ArrayList<>();
                 for(Algorithm.ScheduleEntry schedule : allocation.conflictingSchedules){
                     recommendedScheduleIds.add(schedule.id);
                 }
-            List<Algorithm.ConflictPair>conflicts = algorithm.findConflicts(schedules);
+            List<Algorithm.ConflictPair>conflicts = algorithm.findConflicts(schedules, priorityMap);
+            // Build conflict list with priority info
+            List<Map<String, Object>> conflictDetails = new ArrayList<>();
+            for(Algorithm.ConflictPair cp : conflicts){
+                Map<String, Object> detail = new HashMap<>();
+                detail.put("firstScheduleId", cp.firstSchedule.id);
+                detail.put("firstSubjectName", cp.firstSchedule.subjectName);
+                detail.put("firstPriority", cp.firstSchedule.priority);
+                detail.put("firstPriorityRank", cp.firstSchedule.priorityRank);
+                detail.put("secondScheduleId", cp.secondSchedule.id);
+                detail.put("secondSubjectName", cp.secondSchedule.subjectName);
+                detail.put("secondPriority", cp.secondSchedule.priority);
+                detail.put("secondPriorityRank", cp.secondSchedule.priorityRank);
+                detail.put("higherPriority", cp.higherPriority);
+                detail.put("lowerPriority", cp.lowerPriority);
+                conflictDetails.add(detail);
+            }
             Map<String, Object> response = new HashMap<>();
-                response.put("conflicts", conflicts);
+                response.put("conflicts", conflictDetails);
                 response.put("recommendedScheduleIds", recommendedScheduleIds);
             return ResponseEntity.ok(response);
     }
 
     @GetMapping("/api/student/schedules")
-    public List<Map<String, Object>>getSchedules(@RequestParam Long studentId){
-        String sql = "SELECT id, " + "subject_name AS \"subjectName\", " + "instructor, location, day, " + "schedule_type AS \"scheduleType\" ," + "start_time AS \"startTime\", " + "end_time AS \"endTime\", notes, priority, " + "EXISTS (" + "SELECT 1 FROM schedule_mutes sm " + "WHERE sm.schedule_id = schedules.id " + "AND sm.muted_date = CURRENT_DATE" + ") AS \"mutedToday\" " + "FROM schedules " + "WHERE student_id = ? " + "ORDER BY day, start_time";
-        return jdbcTemplate.queryForList(sql, studentId);
+public List<Map<String, Object>> getSchedules(@RequestParam Long studentId) {
+
+    String sql = "SELECT id, subject_name AS \"subjectName\", instructor, location, day, " +
+            "schedule_date AS \"scheduleDate\", " + 
+            "schedule_type AS \"scheduleType\", " +
+            "start_time AS \"startTime\", end_time AS \"endTime\", notes, priority, category, description, " +
+            "false AS \"mutedToday\" " +
+            "FROM schedules WHERE student_id = ? AND schedule_date >= CURRENT_DATE " + "ORDER BY schedule_date, start_time";
+
+    List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, studentId);
+
+    List<Algorithm.ScheduleEntry> schedules = new ArrayList<>();
+
+    for(Map<String, Object> row : rows){
+        java.sql.Date sqlDate = (java.sql.Date) row.get("schedule_date");
+        LocalDate scheduleDate = sqlDate == null ? null : sqlDate.toLocalDate();
+        schedules.add(new Algorithm.ScheduleEntry(
+            ((Number) row.get("id")).longValue(),
+            (String) row.get("subjectName"),
+            (String) row.get("day"),
+            scheduleDate,
+            ((java.sql.Time) row.get("startTime")).toLocalTime(),
+            ((java.sql.Time) row.get("endTime")).toLocalTime(),
+            (String) row.get("scheduleType"),
+            (String) row.get("category")
+        ));
     }
+
+    Algorithm algorithm = new Algorithm();
+    algorithm.findConflicts(schedules, loadPriorityMap());
+
+    Map<Long, Algorithm.ScheduleEntry> scheduleMap = new HashMap<>();
+
+    for(Algorithm.ScheduleEntry s : schedules){
+        scheduleMap.put(s.id, s);
+    }
+
+    for(Map<String, Object> row : rows){
+
+        Long id = ((Number) row.get("id")).longValue();
+        Algorithm.ScheduleEntry s = scheduleMap.get(id);
+
+        if(s != null){
+            row.put("priority", s.priority);
+            row.put("priorityRank", s.priorityRank);
+        }
+    }
+
+    return rows;
+}
+
+    @GetMapping("/api/student/schedules/upcoming")
+public List<Map<String, Object>> getUpcoming(
+        @RequestParam Long studentId,
+        @RequestParam(defaultValue = "30") int minutesAhead) {
+
+    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime windowEnd = now.plusMinutes(minutesAhead);
+
+    String sql = "SELECT id, subject_name AS \"subjectName\", description, location, day, " +
+            "schedule_date AS \"scheduleDate\", " +
+            "start_time AS \"startTime\", end_time AS \"endTime\", priority, category " +
+            "FROM schedules " +
+            "WHERE student_id = ? " +
+            "AND (schedule_date + start_time) BETWEEN ? AND ? " +
+            "ORDER BY schedule_date, start_time";
+
+    return jdbcTemplate.queryForList(sql, studentId, now, windowEnd);
+}
 
     @GetMapping("/api/student/schedules/free-slots")
     public List<Map<String, String>> freeSlots(@RequestParam Long studentId,
@@ -129,17 +294,13 @@ public class Schedule {
     }
 
     @PostMapping("/api/student/schedules/{scheduleId}/mute")
-    public ResponseEntity<?> muteSchedule(@PathVariable Long scheduleId, @RequestParam Long studentId){
-        LocalDate todayDate = LocalDate.now(ZoneId.of("Asia/Manila"));
-        String today = todayDate.getDayOfWeek().name();
-        String checksql = "SELECT COUNT (*) FROM schedules " + "WHERE id = ? AND student_id = ? " + "AND UPPER(day) IN (?, ?)";
-        Integer count = jdbcTemplate.queryForObject(checksql, Integer.class, scheduleId, studentId, today, today.substring(0, 3));
-            if(count == null || count == 0){
-                return ResponseEntity.badRequest().body(Map.of("message", "Schedule not found or not scheduled today."));
-            }
-        String mutesql = "INSERT INTO schedule_mutes (schedule_id, muted_date) " + "VALUES (?, ?) " + "ON CONFLICT (schedule_id, muted_date) DO NOTHING";
-            jdbcTemplate.update(mutesql, scheduleId, todayDate);
-        return ResponseEntity.ok(Map.of("message", "Schedule muted for today."));
+    public ResponseEntity<?> muteSchedule(@PathVariable Long scheduleId, @RequestParam Long studentId) {
+        String checksql = "SELECT COUNT (*) FROM schedules WHERE id = ? AND student_id = ?";
+        Integer count = jdbcTemplate.queryForObject(checksql, Integer.class, scheduleId, studentId);
+        if (count == null || count == 0) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Schedule not found."));
+        }
+        return ResponseEntity.ok(Map.of("message", "Schedule muted for today (feature requires schedule_mutes table)."));
     }
 
     @DeleteMapping("/api/student/schedules/{scheduleId}")

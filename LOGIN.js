@@ -64,13 +64,28 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                 localStorage.setItem("studentId", result.studentId);
                 localStorage.setItem("fullName", result.fullName);
                 localStorage.setItem("email", result.email);
-            }
 
-            showLoginSuccess();
+                showLoginSuccess();
 
             setTimeout(() => {
                 window.location.href = "DASHBOARD.html";
             }, 1000);
+            }
+            
+
+            if (result.role === "admin") {
+                localStorage.setItem("adminId", result.adminId);
+                localStorage.setItem("fullName", result.fullName);
+                localStorage.setItem("email", result.email);
+
+                showLoginSuccess();
+
+            setTimeout(() => {
+                window.location.href = "ADMIN.html";
+            }, 1000);
+            }
+
+            
 
         } else {
             showLoginError(result.message || "Incorrect email or password.");

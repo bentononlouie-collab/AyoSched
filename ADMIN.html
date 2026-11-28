@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ADMIN </title>
+    <link rel="stylesheet" href="ADMIN.css">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href = "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel = "styleheet">
+</head>
+<body>
+    <div class = "Admin-logo">
+        <i class = "fa-solid fa-calendar-days"></i>
+    </div>
+        <h1 class = "Ayo"> Ayo </h1>
+        <h1 class = "Sched"> Sched </h1>
+    <div class = "Icon">
+        <div class = "Profile" id = "ProfileBtn">
+            <i class = "fa-solid fa-user"></i>
+        </div>
+        <div class = "User">
+            <span id = "Name"> User </span>
+            <span id = "Role"> Role </span>
+        </div>
+        <span class = "Dropdown-arrow"> v </span>
+        <div class = "Dropdown-menu" id = "DropdownMenu">
+            <button id = "SettingsBtn"> Settings </button>
+            <button id = "LogoutBtn"> Logout </button>
+        </div>
+        <div class = "Settings-card" id = "SettingsCard">
+            <div class = "Settings-header">
+                <button type = "button" class = "Back-btn" id = "BackBtn"> 
+                    <i class = "fa-solid fa-arrow-left"></i>
+                </button>
+                <span class = "Settings-title"> Settings </span>
+            </div>
+            <div class = "Settings-profile">
+                <div class = "Settings-avatar" id = "AvatarBtn" title = "Change profile picture">
+                    <i class = "fa-solid fa-user"></i>
+                    <span class = "Avatar-edit">
+                        <i class = "fa-solid fa-camera"></i>
+                    </span>
+                </div>
+                <div class = "Settings-user">
+                    <span class = "Settings-fullname" id = "CardName"> User </span>
+                    <span class = "Settings-role" id = "CardRole"> Role </span>
+                </div>
+            </div>
+            <input type = "file" id = "AvatarInput" accept = "image/*" hidden>
+            <h3> Edit Profile </h3>
+            <label for = "FullName"> FullName </label>
+            <input type = "text" id = "FullName" placeholder = "Full name">
+            <label for = "Username"> Username </label>
+            <input type = "text" id = "Username" placeholder = "Username">
+            <label for = "CurrentPassword"> Current Password </label>
+            <input type = "text" id = "CurrentPassword" placeholder = "Current password">
+            <label for = "NewPassword"> New Password </label>
+            <input type = "text" id = "NewPassword" placeholder = "New password">
+            <label for = "ConfirmPassword"> Confirm Password </label>
+            <input type = "text" id = "ConfirmPassword" placeholder = "Confirm new password">
+            <p class = "Settings-msg" id = "SettingsMsg"></p>
+            <div class = "Settings-actions">
+                <button type = "button" id = "CancelBtn"> Cancel </button>
+                <button type = "button" id = "SaveBtn"> Save </button>
+            </div>
+        </div>
+    </div>
+    <div class = "Priorities">
+        <h1> Assign Priority Level </h1>
+        <h3 class = "Type"> Category </h3>
+            <select id = "priorityCategory">
+                <option value = "educational"> Academic </option>
+                <option value = "personal"> Personal </option>
+            </select>
+        <h3 class = "Type"> Schedule Type </h3>
+        <input type = "text" id = "scheduleType" placeholder = "Lecture...">
+        <h3 class = "Type1"> Priority Level </h3>
+        <input type = "text" id = "priorityLevel" placeholder = "1...">
+        <div class = "Priorities-actions">
+            <button type = "button" id = "priorityCancelBtn" class = "Cancel"> Cancel </button>
+            <button type = "button" id = "prioritySaveBtn" class = "Save"> Save </button>
+        </div>
+        <h2> Assigned Priority </h2>
+        <div id = "priorityList"></div>
+    </div>
+    <script src = "ADMIN.js"></script>
+</body>
+</html>
